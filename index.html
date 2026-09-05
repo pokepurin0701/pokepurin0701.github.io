@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="プリンの帽子を被ったVTuber・ぽけぷりんの公式リンクページ。YouTube、Twitch、Xはこちらから。">
+  <meta name="theme-color" content="#ffe500">
+  <title>ぽけぷりん | Official Links</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--yellow:#ffe500;--cream:#fffbea;--brown:#4a2a16;--pink:#ff7da8;--line:#4a2a16;--white:#fff}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--brown);font-family:'M PLUS Rounded 1c','Zen Maru Gothic',sans-serif}
+    .noise{position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#4a2a16 .7px,transparent .7px);background-size:12px 12px;mix-blend-mode:multiply}
+    .shell{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:32px 0 48px}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:610px;border:3px solid var(--line);border-radius:28px;overflow:hidden;background:var(--white);box-shadow:10px 10px 0 var(--brown)}
+    .hero-copy{padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
+    .eyebrow{display:inline-flex;width:max-content;padding:8px 14px;border:2px solid var(--line);border-radius:999px;font-weight:800;letter-spacing:.1em;background:var(--yellow)}
+    h1{font-size:clamp(64px,8vw,112px);line-height:.92;margin:24px 0 18px;letter-spacing:-.06em}
+    .lead{font-size:clamp(20px,2.2vw,30px);font-weight:800;margin:0 0 20px}
+    .intro{font-size:18px;line-height:1.9;margin:0;max-width:560px}
+    .goal{margin-top:30px;padding:14px 18px;background:var(--pink);color:#fff;border:2px solid var(--line);border-radius:16px;font-weight:800;transform:rotate(-1deg);width:max-content;max-width:100%}
+    .visual{position:relative;min-height:610px;background:linear-gradient(155deg,#fff7a6 0%,#ffe500 100%);overflow:hidden;border-left:3px solid var(--line)}
+    .sun{position:absolute;width:420px;height:420px;border-radius:50%;background:#fff8d4;top:58px;left:50%;transform:translateX(-50%);border:3px solid var(--line)}
+    .character{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);max-height:590px;max-width:94%;object-fit:contain;transition:.22s ease}
+    .character-smile{opacity:0}
+    .visual:hover .character-default{opacity:0}
+    .visual:hover .character-smile{opacity:1;transform:translateX(-50%) scale(1.015)}
+    .sticker{position:absolute;background:#fff;border:2px solid var(--line);padding:7px 12px;font-weight:800;letter-spacing:.12em;box-shadow:4px 4px 0 var(--brown)}
+    .sticker-a{top:42px;left:24px;transform:rotate(-8deg)}
+    .sticker-b{right:22px;bottom:42px;transform:rotate(7deg);background:var(--pink);color:#fff}
+    .links{padding:88px 0 56px}
+    .section-head p,.about-title-wrap p{margin:0;font-size:13px;letter-spacing:.24em;font-weight:800}
+    .section-head h2,.about h2{font-size:clamp(48px,7vw,88px);line-height:1;margin:4px 0 28px;letter-spacing:-.04em}
+    .link-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .link-card{position:relative;min-height:220px;padding:28px;border:3px solid var(--line);border-radius:24px;text-decoration:none;color:var(--brown);overflow:hidden;transition:.18s ease;box-shadow:6px 6px 0 var(--brown)}
+    .link-card:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--brown)}
+    .youtube{background:#fff}.twitch{background:#f1e9ff}.x{background:#f3f3f3}
+    .card-no{font-size:13px;font-weight:800;letter-spacing:.16em}
+    .card-title{display:block;font-size:40px;font-weight:800;margin-top:26px}
+    .card-copy{display:block;margin-top:8px;font-weight:700}
+    .arrow{position:absolute;right:24px;bottom:20px;font-size:34px}
+    .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;padding:52px;border:3px solid var(--line);border-radius:26px;background:#fff;box-shadow:8px 8px 0 var(--brown)}
+    .about h2{font-size:clamp(36px,5vw,62px);margin-top:6px}
+    .about-copy{font-size:19px;line-height:1.9;font-weight:700}
+    .about-copy p{margin:0 0 14px}
+    footer{display:flex;justify-content:space-between;padding:34px 4px 0;font-weight:800;letter-spacing:.08em}
+    @media (max-width:860px){
+      .shell{width:min(100% - 20px,760px);padding-top:14px}
+      .hero{grid-template-columns:1fr;min-height:auto}
+      .hero-copy{padding:42px 26px 34px}
+      .visual{border-left:0;border-top:3px solid var(--line);min-height:480px}
+      .sun{width:330px;height:330px;top:42px}
+      .character{max-height:470px}
+      h1{font-size:72px}
+      .link-grid{grid-template-columns:1fr}
+      .link-card{min-height:170px}
+      .about{grid-template-columns:1fr;padding:34px 26px}
+      .links{padding-top:64px}
+    }
+    @media (max-width:480px){
+      h1{font-size:56px}.lead{font-size:19px}.intro{font-size:16px}.goal{font-size:14px}
+      .visual{min-height:400px}.character{max-height:400px}.sun{width:280px;height:280px}
+      .card-title{font-size:34px}.about-copy{font-size:17px}
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="site-title">
+      <div class="hero-copy">
+        <div class="eyebrow">PUDDING VTUBER</div>
+        <h1 id="site-title">ぽけぷりん</h1>
+        <p class="lead">ぷりんの帽子を被ったVTuber 🍮🔪</p>
+        <p class="intro">ツッコミよりボケが得意。<br>YouTubeではShorts・歌ってみた、TwitchではVALORANTを中心に配信しています。</p>
+        <div class="goal">2026年内 YouTube収益化を目指して活動中！</div>
+      </div>
+
+      <div class="visual" aria-label="ぽけぷりんのキャラクター画像">
+        <div class="sun"></div>
+        <img class="character character-default"
+             src="https://raw.githubusercontent.com/boobytraps0223-ctrl/boobytraps0223-ctrl.github.io/main/assets/poke.png"
+             alt="ぽけぷりん">
+        <img class="character character-smile"
+             src="https://raw.githubusercontent.com/boobytraps0223-ctrl/boobytraps0223-ctrl.github.io/main/assets/poke-smile.png"
+             alt="笑顔のぽけぷりん">
+        <span class="sticker sticker-a">POKE</span>
+        <span class="sticker sticker-b">PURIN</span>
+      </div>
+    </section>
+
+    <section class="links" aria-labelledby="links-title">
+      <div class="section-head">
+        <p>FIND ME</p>
+        <h2 id="links-title">LINKS</h2>
+      </div>
+
+      <div class="link-grid">
+        <a class="link-card youtube" href="https://www.youtube.com/@pokepurin0701" target="_blank" rel="noopener noreferrer">
+          <span class="card-no">01</span><span class="card-title">YouTube</span>
+          <span class="card-copy">Shorts / 歌ってみた</span><span class="arrow">↗</span>
+        </a>
+        <a class="link-card twitch" href="https://www.twitch.tv/pokepurin0701" target="_blank" rel="noopener noreferrer">
+          <span class="card-no">02</span><span class="card-title">Twitch</span>
+          <span class="card-copy">VALORANT / 雑談 / 作業</span><span class="arrow">↗</span>
+        </a>
+        <a class="link-card x" href="https://x.com/pokepurin0701" target="_blank" rel="noopener noreferrer">
+          <span class="card-no">03</span><span class="card-title">X</span>
+          <span class="card-copy">配信・動画のお知らせ</span><span class="arrow">↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="about" aria-labelledby="about-title">
+      <div class="about-title-wrap">
+        <p>ABOUT</p>
+        <h2 id="about-title">ぽけぷりんって？</h2>
+      </div>
+      <div class="about-copy">
+        <p>プリンの帽子がトレードマークの個人VTuber。</p>
+        <p>ゲーム、歌、イラスト、Live2Dなど、好きなことをいろいろ形にしながら活動しています。</p>
+      </div>
+    </section>
+
+    <footer><span>© POKEPURIN</span><span>🍮🔪</span></footer>
+  </main>
+</body>
+</html>
