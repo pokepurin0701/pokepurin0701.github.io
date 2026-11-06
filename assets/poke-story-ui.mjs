@@ -1,3 +1,5 @@
+import {canUse} from './poke-growth.mjs?v=growth-2';
+import {previewEnabled} from './poke-growth-ui.mjs?v=growth-2';
 import {makeState,dayNow,hourNow,dateLabel,enter,choose,resolve,addMemory} from './poke-story.mjs';
 const key='poke-connected-story-v1', $=id=>document.getElementById(id);
 const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -10,9 +12,9 @@ function save(){if(demo)return;try{localStorage.setItem(key,JSON.stringify(state
 function modal(html){$('storyDialogBody').innerHTML=html;if(!dialog.open)dialog.showModal();}
 function button(action,label,extra=''){return `<button type="button" data-story="${action}" ${extra}>${label}</button>`;}
 export function restoreStoryLabels(){for(const [b,html] of changed){if(b.isConnected)b.innerHTML=html;}changed.clear();}
-export function renderStory(nextTab,options={}){tab=nextTab;context=options;init();draw();}
-function draw(){restoreStoryLabels();const host=$('storyArea');if(context.legacyDemo){host.innerHTML='<p class="story-note">連動する手紙と事件は、自分の進捗に戻ってから「未来をのぞく」で体験できます。</p>';return;}if(!demo){day=dayNow();hour=hourNow();state=real;}event=enter(state,day,hour);if(!demo&&context.legacyVisits>state.days.length+(state.baseVisits||0)){state.baseVisits=context.legacyVisits-state.days.length;event=enter(state,day,hour);}save();host.innerHTML='';const unread=state.letters.filter(l=>!l.read).length;const mailNav=document.querySelector('[data-tab="letters"] small');if(mailNav)mailNav.textContent=unread?`新しい手紙 ${unread}通`:'忘れたころに、きみ宛て。';
- if(tab==='today')host.innerHTML=`<div class="story-meta"><span>${dateLabel(day)} · あなたとぽけの${state.days.length+(state.baseVisits||0)}日目</span>${button('demo',demo?'未来の見学を終了':'未来をのぞく ✧')}</div>${demo?`<div class="story-demo" role="status">おためしの未来です。通常の記録には保存しません。<div>${button('next','1日進める →')}${button('jump','30回訪問した未来へ')}${button('night','深夜をのぞく')}</div></div>`:''}<div class="story-grid">${eventCard()}${mailCard()}</div><p class="story-note">＊ 何も起きない日は、ぽけがのんびりしている日です。</p>`;
+export function renderStory(nextTab,options={}){tab=nextTab;context=options;if(!canUse('letters',options.legacyLogins??options.legacyVisits)&&!demo){restoreStoryLabels();$('storyArea').innerHTML='';return;}init();draw();}
+function draw(){restoreStoryLabels();const host=$('storyArea');if(!canUse('letters',context.legacyLogins??context.legacyVisits)&&!demo){host.innerHTML='';return;}if(context.legacyDemo){host.innerHTML='<p class="story-note">連動する手紙と事件は、自分の進捗に戻ってから「未来をのぞく」で体験できます。</p>';return;}if(!demo){day=dayNow();hour=hourNow();state=real;}event=enter(state,day,hour);if(!demo&&context.legacyVisits>state.days.length+(state.baseVisits||0)){state.baseVisits=context.legacyVisits-state.days.length;event=enter(state,day,hour);}save();host.innerHTML='';const unread=state.letters.filter(l=>!l.read).length;const mailNav=document.querySelector('[data-tab="letters"] small');if(mailNav)mailNav.textContent=unread?`新しい手紙 ${unread}通`:'忘れたころに、きみ宛て。';
+ if(tab==='today')host.innerHTML=`<div class="story-meta"><span>${dateLabel(day)} · あなたとぽけの${state.days.length+(state.baseVisits||0)}日目</span>${previewEnabled()?button('demo',demo?'未来の見学を終了':'未来をのぞく ✧'):''}</div>${demo?`<div class="story-demo" role="status">おためしの未来です。通常の記録には保存しません。<div>${button('next','1日進める →')}${button('jump','30回訪問した未来へ')}${button('night','深夜をのぞく')}</div></div>`:''}<div class="story-grid">${eventCard()}${mailCard()}</div><p class="story-note">＊ 何も起きない日は、ぽけがのんびりしている日です。</p>`;
  if(tab==='letters')host.innerHTML=`<section class="story-card story-mail"><h2>ぽけからの手紙</h2><p>同じ日でも、届く手紙は人それぞれ。</p>${state.letters.map(l=>`<button class="story-mail-row" data-story="letter" data-id="${esc(l.id)}"><span>✉ ${esc(l.subject)}</span><small>${l.read?'既読':'NEW'} · ${dateLabel(l.day)} ${l.reply?'· お返事ずみ':''}</small></button>`).join('')}</section>`;
  if(tab==='album')host.innerHTML=`<section class="story-card"><h2>手紙から続いた、ふたりのひみつ</h2>${state.album.map(a=>`<article class="story-memory"><small>${dateLabel(a.day)}</small><h3>${esc(a.icon)} ${esc(a.title)}</h3><p>${text(a.body)}</p></article>`).join('')}</section>`;
  if(tab==='collection'&&state.items.length)host.innerHTML=`<section class="story-card"><h2>あの日のひとことから届いたもの</h2><div class="story-items">${state.items.map(i=>`<span>✧ ${esc(i)}</span>`).join('')}</div></section>`;
@@ -30,7 +32,7 @@ function handle(e){const b=e.target.closest('button');if(!b)return;if(b.hasAttri
  if(action==='quick'){$('storyReplyText').value=b.dataset.text;$('storyReplyText').focus();return;}
  if(action==='choose'){choose(state,Number(b.dataset.index),day);notice='ぽけが、あなたのひとことを覚えました。';draw();return;}
  if(action==='resolve'){finish(b.dataset.angle);return;}
- if(action==='demo'){if(demo){demo=false;state=real;day=dayNow();hour=hourNow();draw();}else modal('<h2>ぽけとの未来、のぞいてみる？</h2><p>相談に答え、手紙に返事を書いてから、1日ずつ時間を進めてみてください。</p><p>おためし専用の記録で遊べます。いつもの記録には保存しません。</p>'+button('start','おためしの未来へ →'));return;}
+ if(action==='demo'){if(!previewEnabled())return;if(demo){demo=false;state=real;day=dayNow();hour=hourNow();draw();}else modal('<h2>ぽけとの未来、のぞいてみる？</h2><p>相談に答え、手紙に返事を書いてから、1日ずつ時間を進めてみてください。</p><p>おためし専用の記録で遊べます。いつもの記録には保存しません。</p>'+button('start','おためしの未来へ →'));return;}
  if(action==='start'){demo=true;state=makeState(dayNow(),real.seed);day=dayNow();hour=12;dialog.close();draw();return;}
  if(action==='next'){if(!demo)return;day++;hour=12;draw();return;}
  if(action==='jump'){if(!demo)return;for(let i=0;i<30;i++){day++;enter(state,day,12);}hour=12;draw();return;}

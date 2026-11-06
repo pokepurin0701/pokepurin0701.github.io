@@ -4,13 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f9d866">
-  <title>ぽけの遊び場｜ぽけのひみつ基地</title>
-  <meta name="description" content="今日も、ぽけに巻きこまれよう。褒めて、集めて、秘密を見つける。通うほど変わるぽけぷりんの遊び場。">
+  <title>ぷりんの遊び場｜通うほど育つ、ぽけぷりんのひみつ基地</title>
+  <meta name="description" content="ぽけぷりんと過ごす、登録不要の遊び場。入場10回・30回で新しい部屋が開き、訪問日や時間で手紙と事件が変わります。最初は小さく、通うほどあなたの居場所が育ちます。">
   <link rel="icon" href="assets/fridge/9cf7154717bd7fa6.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/play.css?v=story-1">
-  <link rel="stylesheet" href="assets/poke-story.css?v=1">
+  <link rel="stylesheet" href="assets/play.css?v=growth-2">
+  <link rel="stylesheet" href="assets/poke-story.css?v=growth-2">
   <script src="assets/poke-config.js"></script>
-  <script type="module" src="assets/play.mjs?v=story-1"></script>
+  <script type="module" src="assets/play.mjs?v=growth-2"></script>
+
+  <link rel="canonical" href="https://pokepurin0701.github.io/play.html">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="ぷりんの遊び場｜ぽけぷりん">
+  <meta property="og:title" content="ぷりんの遊び場｜通うほど育つ、ぽけぷりんのひみつ基地">
+  <meta property="og:description" content="ぽけぷりんと過ごす、登録不要の遊び場。入場10回・30回で新しい部屋が開き、訪問日や時間で手紙と事件が変わります。最初は小さく、通うほどあなたの居場所が育ちます。">
+  <meta property="og:url" content="https://pokepurin0701.github.io/play.html">
+  <meta property="og:image" content="https://pokepurin0701.github.io/assets/fridge/c07ea34707ca730c.webp">
+  <meta property="og:image:alt" content="ウインクするVTuberぽけぷりん">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@pokepurin0701">
 </head>
 <body>
   <a class="skip-link" href="#playContent">今日のあそびへ進む</a>
@@ -29,28 +42,31 @@
         <button data-tab="album" aria-pressed="false"><span class="nav-icon" aria-hidden="true">▤</span><span>事件アルバム<small>なんでもない、大事件。</small></span><span class="nav-arrow">↗</span></button>
         <button data-tab="office" aria-pressed="false"><span class="nav-icon" aria-hidden="true">⚑</span><span>ぽけ運営室<small>立ち入り、歓迎です。</small></span><span class="nav-arrow">↗</span></button>
       </nav>
-      <div class="member-pass"><span class="eyebrow">YOUR MEMBER PASS</span><p id="rank"></p><div class="pass-numbers"><span id="visits"></span><span id="coins"></span></div><button id="checkin">今日の訪問を記録</button><p class="pass-note">お休みしても、あなたの席はここ。</p><span class="pass-star" aria-hidden="true">✦</span></div>
+      <div class="member-pass"><span class="eyebrow">YOUR MEMBER PASS</span><p id="rank"></p><div class="pass-numbers"><span id="loginCount"></span><span id="visits"></span><span id="coins"></span></div><button id="checkin">今日の訪問を記録</button><p class="pass-note">お休みしても、あなたの席はここ。</p><span class="pass-star" aria-hidden="true">✦</span></div>
       <div class="sidebar-bottom"><span class="live-dot"></span><span class="stamp">ぽけがのんびり営業中。</span></div>
     </aside>
     <main>
       <header class="page-header"><p>THE LITTLE WORLD OF <b>POKEPURIN</b></p><span id="todayDate"></span></header>
+      <section id="growthUnlock" class="growth-unlock" hidden aria-live="polite"></section>
       <div class="ticker"><span class="ticker-label"><i></i>どうでもいい速報</span><span id="news"></span><span class="ticker-star" aria-hidden="true">✳</span></div>
       <section class="hero" aria-labelledby="heroTitle">
         <div class="hero-grid" aria-hidden="true"></div>
         <div class="hero-copy"><span class="hero-label"><span aria-hidden="true">★</span> ぽけのひみつ基地、開いてます。</span><h1 id="heroTitle">今日も、ぽけに<br><span>巻きこまれよう。</span></h1><p>褒めたり、ひみつを探したり。<br>気づいたら、あなたもここの常連さん。</p><div class="hero-actions"><button id="heroPlay" class="primary">ぽけとあそぶ <span>↗</span></button><button id="heroMap" class="text-link">ひみつの地図を見る <span>→</span></button></div><span class="hero-footnote">何回通っても、まだ知らないぽけがいる。</span></div>
         <div class="hero-visual"><div class="hero-orbit" aria-hidden="true"></div><span class="hero-spark spark-one" aria-hidden="true">✦</span><span class="hero-spark spark-two" aria-hidden="true">✳</span><img id="heroCharacter" src="assets/fridge/c07ea34707ca730c.webp" alt="ウインクしてハートを作るぽけぷりん" width="800" height="1100" fetchpriority="high"><span id="heroSpeech" class="hero-speech">今日も来たんですね。<br>とりあえず、褒めてください。</span><span class="hero-sticker">本日の主役<br><b>ぽけです。</b></span></div>
       </section>
+      <section id="growthGarden" class="growth-garden" aria-label="訪問するたび育つプリンの庭"></section>
       <section class="next-secret" aria-labelledby="nextSecretTitle"><div class="secret-icon" aria-hidden="true">✉</div><div class="secret-copy"><p class="eyebrow">YOUR NEXT LITTLE SURPRISE</p><h2 id="nextSecretTitle">次のひみつを準備中…</h2><p id="nextSecretHint"></p></div><div class="secret-progress"><span id="nextSecretDays"></span><div class="meter"><span id="nextSecretBar"></span></div></div></section>
       <div id="demo" class="demo-banner" hidden>未来の見学中です。ここで遊んでも、本当の進捗や全員の応援数には保存されません。<button id="leavePreview">自分の進捗に戻る →</button></div>
       <section id="playContent" class="play-content" tabindex="-1"><div class="section-heading"><div><p id="sectionEyebrow" class="eyebrow">TODAY'S LITTLE ADVENTURE</p><h2 id="sectionTitle">さて、今日は何してあそぶ？</h2></div><span id="sectionNote">ぽけは、あなた待ち。</span></div><div id="storyArea"></div><div id="content"></div></section>
       <footer>
         <div class="footer-sign"><img src="assets/fridge/9cf7154717bd7fa6.svg" alt="" width="38" height="38"><p>また、ふらっと来てね。<small>POKEPURIN'S SECRET CLUBHOUSE</small></p><a href="./">冷蔵庫にもどる ↗</a></div>
-        <details class="utility"><summary>進捗の保存・未来の見学・この遊び場について <span>＋</span></summary><div class="utility-body"><p id="storage" class="note"></p><div class="backup-actions"><button id="backup">進捗を書き出す</button><label class="import">進捗を読み込む<input id="restore" type="file" accept="application/json"></label><button id="transfer" hidden>別の端末へ引き継ぐ</button></div><label class="preview-control">ちょっと先の遊び場を見学する<select id="preview"><option value="0">自分の進捗</option><option value="5">5日目</option><option value="20">20日目</option><option value="50">50日目</option><option value="100">100日目</option><option value="150">150日目</option><option value="200">200日目</option><option value="300">300日目</option></select></label><p class="note">訪問は日本時間で1日1回。来られない日があっても進捗は減りません。コイン・業務・規約は、この遊び場の中だけのお楽しみです。</p></div></details><p class="tiny">あまいものを英語で言うと、ひみつの扉が開くかも。</p>
+        <details class="utility"><summary>進捗の保存・この遊び場について <span>＋</span></summary><div class="utility-body"><p id="storage" class="note"></p><p id="loginRule" class="note"></p><div class="backup-actions"><button id="backup">進捗を書き出す</button><label class="import">進捗を読み込む<input id="restore" type="file" accept="application/json"></label><button id="transfer" hidden>別の端末へ引き継ぐ</button></div><label class="preview-control">ちょっと先の遊び場を見学する<select id="preview"><option value="0">自分の進捗</option><option value="1">1回目</option><option value="9">9回目</option><option value="10">10回目</option><option value="29">29回目</option><option value="30">30回目</option><option value="50">50回目</option><option value="75">75回目</option><option value="100">100回目</option><option value="150">150回目</option><option value="200">200回目</option><option value="250">250回目</option><option value="300">300回目</option></select></label><p class="note">会員登録は不要です。冷蔵庫か遊び場を開いた日を、日本時間で1日1回記録します。同じ日の再読み込みでは増えません。部屋はログイン累計10・30・50回…で増え、手紙の後日談や訪問スタンプは実際の日付で変化します。お休みしても記録は減りません。コイン・業務・規約は、この遊び場の中だけのお楽しみです。</p></div></details><p class="tiny">あまいものを英語で言うと、ひみつの扉が開くかも。</p>
       </footer>
     </main>
   </div>
   <div id="toast" role="status" aria-live="polite"></div>
   <dialog id="ceremony"><button id="closeCeremony" class="close" aria-label="閉じる">×</button><p class="eyebrow">✦ THE POKE AWARDS ✦</p><div class="trophy" aria-hidden="true">🏆</div><h2>大変よく、<br>遊びに来ました。</h2><p id="certificate"></p><p>また明日も、あなたの席を用意しておきます。</p><button id="saveCertificate" class="primary">表彰状をお持ち帰り ↓</button></dialog>
   <dialog id="transferDialog"><h2>端末間の引き継ぎ</h2><p>このコードを別の端末に入力すると同じ進捗を使えます。コードを知る人は進捗を操作できます。公開しないでください。</p><button id="copyToken">自分のコードをコピー</button><label>引き継ぎコード<input id="tokenInput" type="password" autocomplete="off"></label><button id="useToken">このコードで引き継ぐ</button><button id="closeTransfer">閉じる</button></dialog>
+<noscript><p>ぷりんの遊び場は、ぽけぷりんと過ごす登録不要の遊び場です。手紙や進捗の保存にはJavaScriptを使います。<a href="./">ぽけぷりん公式サイトに戻る</a></p></noscript>
 </body>
 </html>

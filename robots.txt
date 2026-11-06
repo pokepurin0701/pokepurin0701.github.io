@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /original.html
+Disallow: /tests/
+Disallow: /server/
+Sitemap: https://pokepurin0701.github.io/sitemap.xml

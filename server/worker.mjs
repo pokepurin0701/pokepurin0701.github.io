@@ -1,5 +1,5 @@
 import {applyAction,initial} from '../assets/poke-core.mjs';
-const allowed=new Set(['visit','praise','job','mood','rules','logo','night','title','command','resume']);
+const allowed=new Set(['visit','login','praise','job','mood','rules','logo','night','title','command','resume','decorate','tea','research']);
 export default {async fetch(request,env){
  const origin=request.headers.get('Origin'),site=env.SITE_ORIGIN;
  const headers={'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','Vary':'Origin','Access-Control-Allow-Origin':site,'Access-Control-Allow-Headers':'Content-Type, Authorization','Access-Control-Allow-Methods':'POST, OPTIONS'};
