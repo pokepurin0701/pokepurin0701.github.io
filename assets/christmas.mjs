@@ -165,8 +165,6 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
     const focusedEntry = active?.dataset.entryId;
     const focusInHistory = active?.closest('.christmas-history');
     host.hidden = !isChristmasSeason(today());
-    const intro = document.querySelector('[data-christmas-intro]');
-    if (intro) intro.hidden = !host.hidden;
     if (host.hidden) return;
     const locked = busy || !!pending || !!state?.mine;
     submit.disabled = busy || storageError || !state || !state.seasonOpen || !!state.mine;
@@ -308,6 +306,16 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
     if (changedDay) render();
     if (!document.hidden && (changedDay || !historyExpanded || state?.day !== day)) load();
   }, 60_000);
+  // Update exactly at JST midnight while the page is open, alongside regular refreshes.
+  function watchMidnight() {
+    const delay = 86_400_000 - ((Date.now() + 9 * 3_600_000) % 86_400_000);
+    setTimeout(() => {
+      render();
+      if (!document.hidden) load();
+      watchMidnight();
+    }, delay);
+  }
+  if (today === japanDay) watchMidnight();
   render(storageError ? 'ブラウザの保存設定を確認して、ページを開き直してね。' : 'みんなのツリーを準備しています…');
   load();
 }
