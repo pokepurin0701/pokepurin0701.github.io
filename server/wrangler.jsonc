@@ -1,0 +1,14 @@
+{
+  "name": "poke-play-api",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-11-01",
+  "vars": {
+    "SITE_ORIGIN": "https://pokepurin0701.github.io"
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "poke-play",
+    "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+    "migrations_dir": "."
+  }]
+}
