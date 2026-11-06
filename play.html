@@ -7,9 +7,10 @@
   <title>ぽけの遊び場｜ぽけのひみつ基地</title>
   <meta name="description" content="今日も、ぽけに巻きこまれよう。褒めて、集めて、秘密を見つける。通うほど変わるぽけぷりんの遊び場。">
   <link rel="icon" href="assets/fridge/9cf7154717bd7fa6.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/play.css?v=clubhouse-1">
+  <link rel="stylesheet" href="assets/play.css?v=story-1">
+  <link rel="stylesheet" href="assets/poke-story.css?v=1">
   <script src="assets/poke-config.js"></script>
-  <script type="module" src="assets/play.mjs?v=clubhouse-1"></script>
+  <script type="module" src="assets/play.mjs?v=story-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#playContent">今日のあそびへ進む</a>
@@ -23,6 +24,7 @@
       <p class="sidebar-caption">いつもの場所に、<br>まだ知らないひみつ。</p>
       <nav aria-label="遊び場メニュー">
         <button data-tab="today" aria-pressed="true"><span class="nav-icon" aria-hidden="true">☀</span><span>今日のあそび<small>まずは、ここから。</small></span><span class="nav-arrow">↗</span></button>
+        <button data-tab="letters" aria-pressed="false"><span class="nav-icon" aria-hidden="true">✉</span><span>ぽけからの手紙<small>忘れたころに、きみ宛て。</small></span><span class="nav-arrow">↗</span></button>
         <button data-tab="collection" aria-pressed="false"><span class="nav-icon" aria-hidden="true">♧</span><span>たからもの<small>集めたひみつを飾ろう。</small></span><span class="nav-arrow">↗</span></button>
         <button data-tab="album" aria-pressed="false"><span class="nav-icon" aria-hidden="true">▤</span><span>事件アルバム<small>なんでもない、大事件。</small></span><span class="nav-arrow">↗</span></button>
         <button data-tab="office" aria-pressed="false"><span class="nav-icon" aria-hidden="true">⚑</span><span>ぽけ運営室<small>立ち入り、歓迎です。</small></span><span class="nav-arrow">↗</span></button>
@@ -40,7 +42,7 @@
       </section>
       <section class="next-secret" aria-labelledby="nextSecretTitle"><div class="secret-icon" aria-hidden="true">✉</div><div class="secret-copy"><p class="eyebrow">YOUR NEXT LITTLE SURPRISE</p><h2 id="nextSecretTitle">次のひみつを準備中…</h2><p id="nextSecretHint"></p></div><div class="secret-progress"><span id="nextSecretDays"></span><div class="meter"><span id="nextSecretBar"></span></div></div></section>
       <div id="demo" class="demo-banner" hidden>未来の見学中です。ここで遊んでも、本当の進捗や全員の応援数には保存されません。<button id="leavePreview">自分の進捗に戻る →</button></div>
-      <section id="playContent" class="play-content" tabindex="-1"><div class="section-heading"><div><p id="sectionEyebrow" class="eyebrow">TODAY'S LITTLE ADVENTURE</p><h2 id="sectionTitle">さて、今日は何してあそぶ？</h2></div><span id="sectionNote">ぽけは、あなた待ち。</span></div><div id="content"></div></section>
+      <section id="playContent" class="play-content" tabindex="-1"><div class="section-heading"><div><p id="sectionEyebrow" class="eyebrow">TODAY'S LITTLE ADVENTURE</p><h2 id="sectionTitle">さて、今日は何してあそぶ？</h2></div><span id="sectionNote">ぽけは、あなた待ち。</span></div><div id="storyArea"></div><div id="content"></div></section>
       <footer>
         <div class="footer-sign"><img src="assets/fridge/9cf7154717bd7fa6.svg" alt="" width="38" height="38"><p>また、ふらっと来てね。<small>POKEPURIN'S SECRET CLUBHOUSE</small></p><a href="./">冷蔵庫にもどる ↗</a></div>
         <details class="utility"><summary>進捗の保存・未来の見学・この遊び場について <span>＋</span></summary><div class="utility-body"><p id="storage" class="note"></p><div class="backup-actions"><button id="backup">進捗を書き出す</button><label class="import">進捗を読み込む<input id="restore" type="file" accept="application/json"></label><button id="transfer" hidden>別の端末へ引き継ぐ</button></div><label class="preview-control">ちょっと先の遊び場を見学する<select id="preview"><option value="0">自分の進捗</option><option value="5">5日目</option><option value="20">20日目</option><option value="50">50日目</option><option value="100">100日目</option><option value="150">150日目</option><option value="200">200日目</option><option value="300">300日目</option></select></label><p class="note">訪問は日本時間で1日1回。来られない日があっても進捗は減りません。コイン・業務・規約は、この遊び場の中だけのお楽しみです。</p></div></details><p class="tiny">あまいものを英語で言うと、ひみつの扉が開くかも。</p>

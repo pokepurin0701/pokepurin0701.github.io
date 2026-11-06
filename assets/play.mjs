@@ -1,3 +1,4 @@
+import {renderStory,restoreStoryLabels} from './poke-story-ui.mjs';
 import './counter-bridge.mjs';
 import {initial,applyAction,rank,news,sayings,rules,milestones,dayKey,dayNumber} from './poke-core.mjs';
 const $=s=>document.querySelector(s),key='poke-play-v1',tokenKey='poke-play-token',api=String(window.POKE_API_URL||'').replace(/\/$/,'');
@@ -27,6 +28,7 @@ function locked(at, label, cls = '') {
   return `<section class="card locked-card ${cls}"><span class="lock-symbol" aria-hidden="true">⌑</span><div><span class="lock-tag">COMING SOON · ${at}日目にOPEN</span><h2>${label}</h2><p class="small">あと${days}日の訪問で、ここにもひみつが増えます。</p></div></section>`;
 }
 function render() {
+  restoreStoryLabels();
   const s = demo || state, n = dayNumber(), date = dayKey(), d = n % 7;
   $('#news').textContent = s.visits >= 3 ? news[n % news.length] : 'ぽけ、あなたの来訪に気づいて褒め待ちを開始。';
   $('#todayDate').textContent = new Intl.DateTimeFormat('ja-JP', {
@@ -55,7 +57,8 @@ function render() {
   $('#nextSecretDays').textContent = `あと ${next[0] - s.visits} 日`;
   $('#nextSecretBar').style.width = `${Math.max(0, Math.min(100, (s.visits - previous) / (next[0] - previous) * 100))}%`;
   const headings = {
-    today: ["TODAY'S LITTLE ADVENTURE", 'さて、今日は何してあそぶ？', 'ぽけは、あなた待ち。'],
+    today: ["TODAY'S LITTLE ADVENTURE", 'きょう、ぽけから何かある？', '何もない日も、ふたりの日常。'],
+    letters: ['LETTERS FROM POKE', '忘れたころに、きみ宛て。', 'お返事は、ぽけの宝物。'],
     collection: ['YOUR LITTLE TREASURE ROOM', '集めたひみつは、たからもの。', 'あなた専用の、ひみつの棚。'],
     album: ['THE VERY UNIMPORTANT ARCHIVE', 'なんでもない日の、大事件。', 'ここに来た日の、足あと。'],
     office: ["POKE'S VERY SERIOUS OFFICE", 'ぽけ運営室へ、ようこそ。', '真面目に、ふざけています。']
@@ -95,7 +98,8 @@ function render() {
     html += card('勝手なアップデート履歴', milestones.filter(([at]) => s.visits >= at).map(([at, msg], i) => `<article class="letter"><b>v${i + 1}.0 · ${at}日目</b><p>${msg}</p></article>`).reverse().join('') || '<p class="small">ぽけが更新を準備しています。</p>', 'wide');
   }
   const sharedOpen = $('#sharedRoom')?.open;
-  $('#content').innerHTML = `<div class="grid">${html}</div>`;
+  $('#content').innerHTML = tab === 'today' ? `<details class="story-legacy"><summary>いつものあそび・みんなの応援企画 ＋</summary><div class="grid">${html}</div></details>` : `<div class="grid">${html}</div>`;
+  renderStory(tab, {legacyVisits:s.visits,legacyDemo:!!demo});
   if (sharedOpen && $('#sharedRoom')) $('#sharedRoom').open = true;
 }
 
