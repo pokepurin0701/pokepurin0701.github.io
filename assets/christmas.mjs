@@ -1,8 +1,7 @@
 import { japanDay, isChristmasSeason, isEmoji, normalizeNickname, cupcakeDescription, ornamentPosition, parseTreeState } from './christmas-core.mjs';
 import { createChristmasClient } from './christmas-client.mjs';
 
-const host = document.querySelector('#christmas-tree');
-if (host) {
+export function mountChristmasTree(host, { client = createChristmasClient(), today = japanDay, storageNamespace = 'poke-christmas' } = {}) {
   host.innerHTML = `
     <div class="christmas-heading"><span class="christmas-label">EVERYONE'S CHRISTMAS TREE</span>
       <h2 id="christmas-title"><span>ひとつずつ、</span><span>みんなのクリスマス。</span></h2>
@@ -47,9 +46,8 @@ if (host) {
   const status = find('.christmas-status');
   const refresh = find('.christmas-refresh');
   const more = find('.christmas-more');
-  const pendingKey = 'poke-christmas-pending-v2';
-  const nicknameKey = 'poke-christmas-nickname';
-  const client = createChristmasClient();
+  const pendingKey = `${storageNamespace}-pending-v2`;
+  const nicknameKey = `${storageNamespace}-nickname`;
   let state = null;
   let entries = [];
   let busy = false;
@@ -101,7 +99,7 @@ if (host) {
     const active = document.activeElement;
     const focusedEntry = active?.dataset.entryId;
     const focusInHistory = active?.closest('.christmas-history');
-    host.hidden = !isChristmasSeason(japanDay());
+    host.hidden = !isChristmasSeason(today());
     if (host.hidden) return;
     const locked = busy || !!pending || !!state?.mine;
     submit.disabled = busy || storageError || !state || !state.seasonOpen || !!state.mine;
@@ -220,12 +218,12 @@ if (host) {
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
       render();
-      if (!historyExpanded || state?.day !== japanDay()) load();
+      if (!historyExpanded || state?.day !== today()) load();
     }
   });
-  let lastDay = japanDay();
+  let lastDay = today();
   setInterval(() => {
-    const day = japanDay();
+    const day = today();
     const changedDay = day !== lastDay;
     lastDay = day;
     if (changedDay) render();
@@ -234,3 +232,6 @@ if (host) {
   render(storageError ? 'ブラウザの保存設定を確認して、ページを開き直してね。' : 'みんなのツリーを準備しています…');
   load();
 }
+
+const host = document.querySelector('#christmas-tree');
+if (host && !host.hasAttribute('data-christmas-manual')) mountChristmasTree(host);

@@ -17,6 +17,7 @@ node tests/counter.test.mjs
 node tests/christmas.test.mjs
 node tests/christmas-server.test.mjs
 node tests/christmas-client.test.mjs
+node tests/christmas-test-client.test.mjs
 node --check assets/play.mjs
 node --check server/worker.mjs
 ```
@@ -59,3 +60,7 @@ node --check server/worker.mjs
 `assets/christmas.mjs` が表示、`assets/christmas-client.mjs` と AppDeploy の `src/tree-bridge.ts` が厳密なオリジン検証付きの通信、`backend/index.ts` が共有DBへの保存を担当します。既存の応援集計と同じ保存コードを再利用し、公開データにコードや識別ハッシュを含めません。従来のブラウザ内だけの匿名の飾りは、公開ツリーへ自動送信しません。
 
 本番で共有するには、GitHub Pages側の変更に加えて、既存のAppDeployアプリ `app-zlmhhw` に更新したバックエンドとフロントエンドを再デプロイする必要があります。古い公開先や接続できない環境ではエラーを表示し、ブラウザ内の保存を共有成功として扱いません。詳しくは `server/README.md` を参照してください。
+
+### おためし専用ページ
+
+`christmas-test.html` で12月の表示と飾りつけをいつでも試せます。「テストの参加者」で2人分の操作を切り替え、「翌日に進む」で日次制限の解除を試せます。このページは本番APIに接続せず、このブラウザ内だけのテスト記録を使います。本番用の保存コード・ニックネーム・未確認送信を読み書きしません。「テストをリセット」はテスト専用の記録だけを消します。検索対象外のページで、通常サイトの季節表示や日付は変えません。
