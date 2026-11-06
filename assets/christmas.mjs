@@ -7,35 +7,38 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
       <h2 id="christmas-title"><span>ひとつずつ、</span><span>みんなのクリスマス。</span></h2>
       <p>お菓子のツリーに、あなたのひと粒を。<br>ニックネームを添えて、毎日ひとつ飾ろう。</p>
     </div>
+    <ol class="christmas-steps" aria-label="飾りつけの手順"><li>名前を入れる</li><li>絵文字を選ぶ</li><li>置く場所を選ぶ</li><li>決定する</li></ol>
     <div class="christmas-layout">
+      <div class="christmas-workshop">
+        <span class="christmas-label">TODAY'S DECORATION</span><h3>まずは、飾りの準備。</h3>
+        <form class="christmas-form">
+          <label for="christmas-nickname">① 名前を入れる <span>（みんなに公開されます）</span></label>
+          <input id="christmas-nickname" name="nickname" placeholder="例：ぽけぷりん" maxlength="100" autocomplete="off" required aria-describedby="christmas-name-help">
+          <p id="christmas-name-help">20文字まで。本名や連絡先は入れないでね。表示名は本人認証ではありません。</p>
+          <p id="christmas-palette-label" class="christmas-step-label">② 飾る絵文字を選ぶ</p>
+          <div class="christmas-palette" role="group" aria-labelledby="christmas-palette-label"></div>
+          <label for="christmas-emoji">選んだ絵文字（入力して変えてもOK）</label>
+          <div class="christmas-input-row"><input id="christmas-emoji" name="emoji" value="🍓" autocomplete="off" maxlength="40" required aria-describedby="christmas-help"></div>
+          <p id="christmas-help">日本時間で1人1日1個。12月1日〜31日限定。</p>
+          <button class="christmas-choose-place" type="button" disabled>③ ツリーで置く場所を選ぶ →</button>
+        </form>
+        <p class="christmas-status" role="status" aria-live="polite"></p>
+        <button class="christmas-refresh" type="button">みんなの飾りを更新</button>
+        <p class="christmas-storage-note">みんなで同じツリーを飾ります。ニックネームと絵文字は公開され、サーバーに保存されます。このブラウザの保存コードで今日の参加を記録します。</p>
+      </div>
       <div class="christmas-scene">
+        <h3 class="christmas-tree-step">③ 置く場所をタップ</h3>
         <span class="christmas-snow snow-one" aria-hidden="true">✧</span><span class="christmas-snow snow-two" aria-hidden="true">✦</span>
         <div class="christmas-cake" role="group" tabindex="0" aria-label="ツリーの飾りつけ。好きな場所を選べます。" aria-describedby="christmas-placement-help">
           <img class="christmas-cake-art" src="assets/christmas-cake.svg" alt="${cupcakeDescription}" width="350" height="385">
           <div class="christmas-ornaments"></div>
           <span class="christmas-placement-preview" aria-hidden="true" hidden></span>
         </div>
-        <p id="christmas-placement-help" class="christmas-placement-help">絵文字を選んで、置きたい場所をタップ。<br>矢印キーでも位置を選べます。Enterで決定。</p>
-        <button class="christmas-confirm" type="button" hidden>ここに飾る</button>
+        <p id="christmas-placement-help" class="christmas-placement-help">ツリーの好きな場所をタップしてね。<br>決定するまでは、タップして置き直せます。</p>
+        <button class="christmas-add christmas-confirm" type="button" hidden>④ この場所に飾る</button>
         <p class="christmas-count">みんなのツリーを読み込んでいます…</p>
         <p class="christmas-scene-help">飾りを押すと、飾った人の名前が見られるよ。</p>
         <p class="christmas-selected" role="status" aria-live="polite"></p>
-      </div>
-      <div class="christmas-workshop">
-        <span class="christmas-label">TODAY'S DECORATION</span><h3>今日は、何をのせる？</h3>
-        <div class="christmas-palette" role="group" aria-label="おすすめの絵文字"></div>
-        <form class="christmas-form">
-          <label for="christmas-nickname">ニックネーム <span>（みんなに公開されます）</span></label>
-          <input id="christmas-nickname" name="nickname" placeholder="例：ぽけぷりん" maxlength="100" autocomplete="off" required aria-describedby="christmas-name-help">
-          <p id="christmas-name-help">20文字まで。本名や連絡先は入れないでね。表示名は本人認証ではありません。</p>
-          <label for="christmas-emoji">好きな絵文字をひとつ入力してもOK</label>
-          <div class="christmas-input-row"><input id="christmas-emoji" name="emoji" value="🍓" autocomplete="off" maxlength="40" required aria-describedby="christmas-help"><button class="christmas-add" type="submit" disabled>ツリーを準備中…</button></div>
-          <p id="christmas-help">日本時間で1人1日1個。12月1日〜31日限定。</p>
-          <button class="christmas-choose-place" type="button" disabled>置きたい場所を選ぶ ↑</button>
-        </form>
-        <p class="christmas-status" role="status" aria-live="polite"></p>
-        <button class="christmas-refresh" type="button">みんなの飾りを更新</button>
-        <p class="christmas-storage-note">みんなで同じツリーを飾ります。ニックネームと絵文字は公開され、サーバーに保存されます。このブラウザの保存コードで今日の参加を記録します。</p>
       </div>
     </div>
     <section class="christmas-history" aria-labelledby="christmas-history-title">
@@ -78,7 +81,7 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
       emojiInput.value = pending.emoji;
     }
   } catch { storageError = true; }
-  const paletteButtons = ['🍓', '🍮', '🍪', '🍬', '🍫', '🧁', '🍒', '🎀', '⭐', '💖'].map(emoji => {
+  const paletteButtons = ['🍓', '🍮', '🍪', '🍬', '🍼', '🥨', '🍒', '🍡', '🍘', '💛'].map(emoji => {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = emoji;
@@ -97,8 +100,8 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
   }
   function showPreview() {
     preview.hidden = !draftPosition || !!state?.mine;
-    confirm.hidden = preview.hidden;
-    confirm.disabled = busy || !!state?.mine;
+    confirm.hidden = !!state?.mine || (!draftPosition && !pending);
+    confirm.disabled = busy || storageError || !state || !state.seasonOpen || !!state.mine;
     if (draftPosition) {
       preview.style.left = `${draftPosition.x}%`;
       preview.style.top = `${draftPosition.y}%`;
@@ -110,7 +113,7 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
     const bound = value => Math.round(Math.min(97, Math.max(3, value)) * 100) / 100;
     draftPosition = { x: bound(x), y: bound(y) };
     showPreview();
-    status.textContent = 'この場所に仮置きしたよ。「ここに飾る」で決定してね。別の場所をタップすると動かせます。';
+    status.textContent = '置く場所を選べたよ。「④ この場所に飾る」で決定してね。別の場所をタップすると動かせます。';
   }
   function goToTree() {
     cake.scrollIntoView({ block: 'center', behavior: 'instant' });
@@ -135,8 +138,10 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
     }
   });
   choosePlace.addEventListener('click', () => {
+    if (!normalizeNickname(nameInput.value)) { status.textContent = '① 名前を1〜20文字で入れてね。'; nameInput.focus(); return; }
+    if (!isEmoji(emojiInput.value.trim())) { status.textContent = '② 絵文字をひとつ選んでね。'; emojiInput.focus(); return; }
     goToTree();
-    status.textContent = '置きたい場所をツリーで選んでね。選んだあとは「ここに飾る」で決定できます。';
+    status.textContent = '③ ツリーの好きな場所をタップ。選んだあとは「④ この場所に飾る」で決定できます。';
   });
   confirm.addEventListener('click', () => find('form').requestSubmit());
   const entryLabel = item => `${item.emoji} ${item.nickname}さんが12月${Number(item.day.slice(-2))}日に飾りました。`;
@@ -163,7 +168,7 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
     if (host.hidden) return;
     const locked = busy || !!pending || !!state?.mine;
     submit.disabled = busy || storageError || !state || !state.seasonOpen || !!state.mine;
-    submit.textContent = busy ? '確認しています…' : state?.mine ? '今日は飾りつけ済み ✓' : pending ? '同じひと粒を再送する' : '今日のひと粒を飾る';
+    submit.textContent = busy ? '確認しています…' : state?.mine ? '今日は飾りつけ済み ✓' : pending ? '同じひと粒を再送する' : '④ この場所に飾る';
     nameInput.disabled = locked;
     emojiInput.disabled = locked;
     paletteButtons.forEach(button => { button.disabled = locked; });
@@ -171,6 +176,11 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
     more.disabled = busy;
     choosePlace.disabled = !canPlace();
     showPreview();
+    find('.christmas-tree-step').textContent = state?.mine ? '今日の飾りつけ、完了！' : '③ 置く場所をタップ';
+    find('#christmas-placement-help').textContent = state?.mine
+      ? '飾れました！ 飾りを押すと名前が見られます。また明日も飾りにきてね。'
+      : draftPosition ? '場所はここでOK？「④ この場所に飾る」で完成。タップして置き直すこともできます。'
+        : 'ツリーの好きな場所をタップしてね。決定するまでは、タップして置き直せます。';
     if (message) status.textContent = message;
     if (!state) return;
     find('.christmas-count').textContent = `${state.year}年のみんなのツリー · ${state.total}個のひと粒`;

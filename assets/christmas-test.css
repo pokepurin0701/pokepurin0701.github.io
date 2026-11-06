@@ -17,3 +17,5 @@ body{margin:0;background:#f4f4df;color:#514c3f;font-family:'Hiragino Kaku Gothic
 .christmas-test-footer a{color:#3c6652}
 .christmas-test-controls :focus-visible,.christmas-test-footer a:focus-visible{outline:3px solid #278591;outline-offset:3px}
 @media(max-width:480px){.christmas-test-page{padding:16px 12px 32px}.christmas-test-banner{padding:18px}.christmas-test-controls{align-items:center}.christmas-test-controls label{width:100%}#test-date{width:100%;margin:0}.christmas-test-controls button{flex:1}}
+
+.christmas-test-options{font-size:12px;margin-top:14px}.christmas-test-options summary{cursor:pointer;text-decoration:underline;text-underline-offset:3px}

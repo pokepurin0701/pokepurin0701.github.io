@@ -6,9 +6,9 @@
   <meta name="robots" content="noindex,nofollow">
   <title>クリスマスツリーを試す｜ぽけぷりん</title>
   <link rel="icon" href="assets/fridge/9cf7154717bd7fa6.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/christmas.css?v=placement-1">
-  <link rel="stylesheet" href="assets/christmas-test.css">
-  <script type="module" src="assets/christmas-test.mjs?v=placement-1"></script>
+  <link rel="stylesheet" href="assets/christmas.css?v=steps-1">
+  <link rel="stylesheet" href="assets/christmas-test.css?v=steps-1">
+  <script type="module" src="assets/christmas-test.mjs?v=steps-1"></script>
 </head>
 <body>
   <main class="christmas-test-page">
@@ -16,13 +16,15 @@
       <span class="christmas-test-label">おためし専用</span>
       <h1><span>クリスマスツリーを</span><span>飾ってみよう。</span></h1>
       <p>12月の飾りつけを、今すぐ試せるページです。<strong>本番には送信しません。</strong><br>この画面の記録は、このブラウザだけに保存します。</p>
+      <p id="test-date"></p>
+      <details class="christmas-test-options"><summary>もう一度試す・参加者を変える</summary>
       <div class="christmas-test-controls">
         <label>テストの参加者<select id="test-person"><option value="me">あなた</option><option value="friend">もうひとり</option></select></label>
-        <p id="test-date"></p>
         <button id="test-tomorrow" type="button">翌日に進む</button>
         <button id="test-reset" type="button">テストをリセット</button>
       </div>
-      <p class="christmas-test-help">名前と絵文字を入れる → ツリーの好きな場所をタップ → 「ここに飾る」で決定。飾りを押すと名前が見られます。「もうひとり」に切り替えると、別の参加者も試せます。1日1個飾ったあとは「翌日に進む」で続きをどうぞ。</p>
+      <p class="christmas-test-help">もう1個飾りたいときは「翌日に進む」。別の人として試したいときは「もうひとり」を選んでね。「テストをリセット」で最初からやり直せます。</p>
+      </details>
       <p id="test-error" role="alert"></p>
     </header>
     <section id="christmas-tree" aria-labelledby="christmas-title" data-christmas-manual hidden></section>
