@@ -59,3 +59,12 @@
 .christmas-confirm{min-height:46px;padding:12px 20px;font-weight:700}
 .christmas-tree-step{text-align:left}
 @media(max-width:680px){.christmas-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.christmas-intro{display:flex;align-items:center;gap:22px;background:#fffaf0;border:1px solid #d9cfb7;border-radius:20px;padding:22px;margin:18px 0 26px;color:#514c3f}
+.christmas-intro[hidden]{display:none!important}
+.christmas-intro>img{display:block;width:100px;height:110px;object-fit:contain;flex-shrink:0}
+.christmas-intro h2{font-size:clamp(18px,2.3vw,24px);line-height:1.6;margin:5px 0 8px}
+.christmas-intro p{font-size:12px;line-height:1.9;margin:0 0 13px}
+.christmas-try-link{display:inline-block;background:#506b56;color:#fffdf2;border-radius:9px;padding:10px 16px;font-size:12px;font-weight:700;text-decoration:none}
+.christmas-try-link:focus-visible{outline:3px solid #278591;outline-offset:4px}
+@media(max-width:580px){.christmas-intro{gap:12px;padding:16px}.christmas-intro>img{width:64px;height:90px}.christmas-intro h2{font-size:17px}.christmas-intro p{font-size:11px}.christmas-try-link{padding:10px 12px;font-size:11px}}

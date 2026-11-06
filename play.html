@@ -24,8 +24,8 @@
   <meta property="og:image:alt" content="ウインクするVTuberぽけぷりん">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@pokepurin0701">
-  <link rel="stylesheet" href="assets/christmas.css?v=steps-1">
-  <script type="module" src="assets/christmas.mjs?v=steps-1"></script>
+  <link rel="stylesheet" href="assets/christmas.css?v=play-top-1">
+  <script type="module" src="assets/christmas.mjs?v=play-top-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#playContent">今日のあそびへ進む</a>
@@ -49,6 +49,11 @@
     </aside>
     <main>
       <header class="page-header"><p>THE LITTLE WORLD OF <b>POKEPURIN</b></p><span id="todayDate"></span></header>
+      <aside class="christmas-intro" data-christmas-intro aria-labelledby="christmas-intro-title">
+        <img src="assets/christmas-cake.svg" alt="緑のクリームと金色の星のカップケーキツリー" width="100" height="110">
+        <div><span class="christmas-label">12月のあそび</span><h2 id="christmas-intro-title">みんなで飾る、お菓子のツリー。</h2><p>名前と絵文字を選んで、好きな場所にひと粒。<br>12月になる前でも、おためしページで遊べます。</p><a class="christmas-try-link" href="christmas-test.html?v=steps-1">今すぐ飾ってみる →</a></div>
+      </aside>
+      <section id="christmas-tree" aria-labelledby="christmas-title" hidden></section>
       <section id="growthUnlock" class="growth-unlock" hidden aria-live="polite"></section>
       <div class="ticker"><span class="ticker-label"><i></i>どうでもいい速報</span><span id="news"></span><span class="ticker-star" aria-hidden="true">✳</span></div>
       <section class="hero" aria-labelledby="heroTitle">
@@ -60,7 +65,6 @@
       <section class="next-secret" aria-labelledby="nextSecretTitle"><div class="secret-icon" aria-hidden="true">✉</div><div class="secret-copy"><p class="eyebrow">YOUR NEXT LITTLE SURPRISE</p><h2 id="nextSecretTitle">次のひみつを準備中…</h2><p id="nextSecretHint"></p></div><div class="secret-progress"><span id="nextSecretDays"></span><div class="meter"><span id="nextSecretBar"></span></div></div></section>
       <div id="demo" class="demo-banner" hidden>未来の見学中です。ここで遊んでも、本当の進捗や全員の応援数には保存されません。<button id="leavePreview">自分の進捗に戻る →</button></div>
       <section id="playContent" class="play-content" tabindex="-1"><div class="section-heading"><div><p id="sectionEyebrow" class="eyebrow">TODAY'S LITTLE ADVENTURE</p><h2 id="sectionTitle">さて、今日は何してあそぶ？</h2></div><span id="sectionNote">ぽけは、あなた待ち。</span></div><div id="storyArea"></div><div id="content"></div></section>
-      <section id="christmas-tree" aria-labelledby="christmas-title" hidden></section>
       <footer>
         <div class="footer-sign"><img src="assets/fridge/9cf7154717bd7fa6.svg" alt="" width="38" height="38"><p>また、ふらっと来てね。<small>POKEPURIN'S SECRET CLUBHOUSE</small></p><a href="./">冷蔵庫にもどる ↗</a></div>
         <details class="utility"><summary>進捗の保存・この遊び場について <span>＋</span></summary><div class="utility-body"><p id="storage" class="note"></p><p id="loginRule" class="note"></p><div class="backup-actions"><button id="backup">進捗を書き出す</button><label class="import">進捗を読み込む<input id="restore" type="file" accept="application/json"></label><button id="transfer" hidden>別の端末へ引き継ぐ</button></div><label class="preview-control">ちょっと先の遊び場を見学する<select id="preview"><option value="0">自分の進捗</option><option value="1">1回目</option><option value="9">9回目</option><option value="10">10回目</option><option value="29">29回目</option><option value="30">30回目</option><option value="50">50回目</option><option value="75">75回目</option><option value="100">100回目</option><option value="150">150回目</option><option value="200">200回目</option><option value="250">250回目</option><option value="300">300回目</option></select></label><p class="note">会員登録は不要です。冷蔵庫か遊び場を開いた日を、日本時間で1日1回記録します。同じ日の再読み込みでは増えません。部屋はログイン累計10・30・50回…で増え、手紙の後日談や訪問スタンプは実際の日付で変化します。お休みしても記録は減りません。コイン・業務・規約は、この遊び場の中だけのお楽しみです。</p></div></details><p class="tiny">あまいものを英語で言うと、ひみつの扉が開くかも。</p>

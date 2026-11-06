@@ -165,6 +165,8 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
     const focusedEntry = active?.dataset.entryId;
     const focusInHistory = active?.closest('.christmas-history');
     host.hidden = !isChristmasSeason(today());
+    const intro = document.querySelector('[data-christmas-intro]');
+    if (intro) intro.hidden = !host.hidden;
     if (host.hidden) return;
     const locked = busy || !!pending || !!state?.mine;
     submit.disabled = busy || storageError || !state || !state.seasonOpen || !!state.mine;
