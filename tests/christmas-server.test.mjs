@@ -119,6 +119,38 @@ test('same-day retries preserve original nickname and emoji and count only once'
   assert.equal(tables.get('christmas_daily').size, 1);
 });
 
+test('chosen placement is shared and daily retries preserve its original coordinates', async () => {
+  begin();
+  const position = {x: 26.25, y: 71.5};
+  const first = await decorate({position});
+  assert.equal(first.statusCode, 200);
+  assert.deepEqual(first.body.mine.position, position);
+  const viewer = await call('status', {token: other});
+  assert.deepEqual(viewer.body.decorations[0].position, position);
+  assert.equal(viewer.body.mine, null);
+  const duplicate = await decorate({position: {x: 80, y: 20}, nickname: '別の名前', emoji: '🍮'});
+  assert.equal(duplicate.body.counted, false);
+  assert.deepEqual(duplicate.body.mine, first.body.mine);
+  const guard = [...tables.get('christmas_daily').values()][0];
+  assert.deepEqual(guard.position, position);
+  const legacy = await decorate({token: other});
+  assert.equal(legacy.statusCode, 200);
+  assert.equal(Object.hasOwn(legacy.body.mine, 'position'), false);
+  assert.deepEqual(legacy.body.decorations[1].position, position);
+});
+
+test('invalid or nonfinite placement is rejected while boundary coordinates are accepted', async () => {
+  begin();
+  for (const position of [null, {}, {x: 50}, {y: 50}, {x: '50', y: 50}, {x: 50, y: null},
+    {x: NaN, y: 50}, {x: Infinity, y: 50}, {x: 50, y: -Infinity},
+    {x: 2.99, y: 50}, {x: 97.01, y: 50}, {x: 50, y: 2.99}, {x: 50, y: 97.01}]) {
+    assert.equal((await decorate({position})).statusCode, 400, String(position));
+  }
+  assert.equal((await call('status', {token})).body.total, 0);
+  assert.deepEqual((await decorate({position: {x: 3, y: 97}})).body.mine.position, {x: 3, y: 97});
+  assert.deepEqual((await decorate({token: other, position: {x: 97, y: 3, private: 'ignored'}})).body.mine.position, {x: 97, y: 3});
+});
+
 test('concurrent writes by the same visitor reserve just one daily decoration', async () => {
   begin();
   const results = await Promise.all(Array.from({length: 8}, (_, i) => decorate({nickname: `名前${i}`})));

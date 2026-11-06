@@ -23,7 +23,8 @@ export function installTreeBridge(post: Post): boolean {
     const action: 'status' | 'decorate' = message.action;
     const body: Record<string, unknown> = action === 'status'
       ? { token: input.token, ...(input.before === undefined ? {} : { before: input.before }) }
-      : { token: input.token, emoji: input.emoji, nickname: input.nickname, day: input.day };
+      : { token: input.token, emoji: input.emoji, nickname: input.nickname, day: input.day,
+        ...(input.position === undefined ? {} : { position: input.position }) };
     const response = { type: 'poke-tree-response', id: message.id, action };
     try {
       const { data } = await post(`/api/tree/${action}`, body);

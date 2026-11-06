@@ -95,7 +95,8 @@ async function praise(token: string, requestId: string) {
 function validToken(token: unknown): token is string {
   return typeof token === 'string' && /^[a-f0-9]{64}$/.test(token);
 }
-type TreeDecoration = { id: string; day: string; emoji: string; nickname: string };
+type TreePosition = { x: number; y: number };
+type TreeDecoration = { id: string; day: string; emoji: string; nickname: string; position?: TreePosition };
 type TreeEntry = Omit<TreeDecoration, 'id'>;
 type TreeDaily = TreeEntry & { entryId: string };
 const treeSegmenter = new Intl.Segmenter('ja', { granularity: 'grapheme' });
@@ -114,8 +115,16 @@ function treeNickname(value: unknown): string | null {
   const length = [...treeSegmenter.segment(nickname)].length;
   return length >= 1 && length <= 20 ? nickname : null;
 }
+function validTreePosition(value: unknown): value is TreePosition {
+  if (!value || typeof value !== 'object') return false;
+  const position = value as { x?: unknown; y?: unknown };
+  return typeof position.x === 'number' && typeof position.y === 'number'
+    && Number.isFinite(position.x) && Number.isFinite(position.y)
+    && position.x >= 3 && position.x <= 97 && position.y >= 3 && position.y <= 97;
+}
 function publicTreeEntry(entry: TreeEntry, id: string): TreeDecoration {
-  return { id, day: entry.day, emoji: entry.emoji, nickname: entry.nickname };
+  return { id, day: entry.day, emoji: entry.emoji, nickname: entry.nickname,
+    ...(entry.position === undefined ? {} : { position: { x: entry.position.x, y: entry.position.y } }) };
 }
 async function readTreeStatus(token: string, before?: number) {
   const today = day();
@@ -155,7 +164,7 @@ function requireTreeDay(expectedDay: string) {
   if (today.slice(5, 7) !== '12')
     throw new TreeRequestError('飾りつけは12月1日〜31日に開きます。', 403);
 }
-async function decorateTree(token: string, emoji: string, nickname: string, expectedDay: string) {
+async function decorateTree(token: string, emoji: string, nickname: string, expectedDay: string, position?: TreePosition) {
   requireTreeDay(expectedDay);
   const year = expectedDay.slice(0, 4);
   const dailyId = `${hash(token)}-${expectedDay}`;
@@ -168,7 +177,8 @@ async function decorateTree(token: string, emoji: string, nickname: string, expe
     const [totals] = await db.get<{ value: number }>('christmas_totals', [year], { consistent: true });
     const index = (totals?.value ?? 0) + 1;
     const entryId = `${year}-${index}`;
-    const entry: TreeEntry = { day: expectedDay, emoji, nickname };
+    const entry: TreeEntry = { day: expectedDay, emoji, nickname,
+      ...(position === undefined ? {} : { position: { x: position.x, y: position.y } }) };
     requireTreeDay(expectedDay);
     try {
       // The unique daily guard, public entry and sequence counter commit together.
@@ -217,13 +227,15 @@ export const handler = router({
   ],
   'POST /api/tree/decorate': [
     async ({ body }) => {
-      const input = body as { token?: unknown; emoji?: unknown; nickname?: unknown; day?: unknown } | null;
+      const input = body as { token?: unknown; emoji?: unknown; nickname?: unknown; day?: unknown; position?: unknown } | null;
       const nickname = treeNickname(input?.nickname);
       if (!validToken(input?.token) || !validTreeEmoji(input?.emoji) || nickname === null
         || typeof input.day !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(input.day))
         return error('ニックネームは1〜20文字、絵文字はひとつを選んでね。', 400);
+      if (input.position !== undefined && !validTreePosition(input.position))
+        return error('飾る位置が正しくありません。ツリーの中から選び直してね。', 400);
       try {
-        return json(await decorateTree(input.token, input.emoji, nickname, input.day));
+        return json(await decorateTree(input.token, input.emoji, nickname, input.day, input.position));
       } catch (err: unknown) { return treeFailure(err); }
     },
   ],

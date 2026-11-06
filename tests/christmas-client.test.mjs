@@ -98,6 +98,27 @@ test('match concurrent replies by request id, protect token, and retain HTTP err
   e.client.close();
 });
 
+test('chosen decoration position passes through both transport boundaries', async () => {
+  const e = parentEnvironment();
+  const position = {x: 27.25, y: 68.5};
+  const promise = e.client.request('decorate', {nickname: 'ぽけ', emoji: '🍓', day: '2026-12-01', position});
+  e.ready(); await tick();
+  const sent = e.frames[0].contentWindow.messages.at(-1).message;
+  assert.equal(sent.body.position.x, position.x);
+  assert.equal(sent.body.position.y, position.y);
+  e.finish(sent, {counted: true});
+  assert.equal((await promise).counted, true);
+  e.client.close();
+
+  const bridge = bridgeEnvironment();
+  const calls = [];
+  bridge.install(async (route, body) => { calls.push({route, body}); return {data: {counted: true}}; });
+  await bridge.emit({type: 'poke-tree-request', id: webcrypto.randomUUID(), action: 'decorate', body: sent.body});
+  assert.equal(calls[0].route, '/api/tree/decorate');
+  assert.equal(calls[0].body.position.x, position.x);
+  assert.equal(calls[0].body.position.y, position.y);
+});
+
 test('an old deployment timeout is retryable with a fresh iframe and rejects late messages', async () => {
   const e = parentEnvironment();
   const first = e.client.request('status');

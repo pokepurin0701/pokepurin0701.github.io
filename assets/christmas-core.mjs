@@ -23,6 +23,11 @@ export function normalizeNickname(value) {
 }
 
 export const cupcakeDescription = '金色の星と濃い緑のクリームをのせた、チョコカップケーキのクリスマスツリー';
+export function isTreePosition(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+    && Number.isFinite(value.x) && Number.isFinite(value.y)
+    && value.x >= 3 && value.x <= 97 && value.y >= 3 && value.y <= 97;
+}
 const ornamentPositions = [
   [2, 25, 20], [2, 33, 25], [3, 41, 36], [3, 49, 43],
   [4, 57, 53], [5, 65, 63], [6, 72, 75], [6, 78, 75],
@@ -48,8 +53,10 @@ export function parseTreeState(value) {
     if (!item || typeof item.id !== 'string' || !/^\d{4}-[1-9]\d*$/.test(item.id)
       || item.id.slice(0, 4) !== value.year || !Number.isSafeInteger(Number(item.id.slice(5)))
       || !isChristmasSeason(item.day) || item.day.slice(0, 4) !== value.year
-      || !isEmoji(item.emoji) || !normalizeNickname(item.nickname)) return invalid();
-    return { id: item.id, day: item.day, emoji: item.emoji, nickname: normalizeNickname(item.nickname) };
+      || !isEmoji(item.emoji) || !normalizeNickname(item.nickname)
+      || (item.position !== undefined && !isTreePosition(item.position))) return invalid();
+    return { id: item.id, day: item.day, emoji: item.emoji, nickname: normalizeNickname(item.nickname),
+      ...(item.position === undefined ? {} : { position: { x: item.position.x, y: item.position.y } }) };
   };
   const decorations = value.decorations.map(entry);
   if (new Set(decorations.map(item => item.id)).size !== decorations.length) return invalid();

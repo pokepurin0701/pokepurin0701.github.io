@@ -11,7 +11,7 @@
 .christmas-cake{position:relative;width:min(100%,350px);aspect-ratio:1/1.1;margin:auto;isolation:isolate}
 .christmas-cake-art{display:block;width:100%;height:100%;object-fit:contain}
 .christmas-ornaments{position:absolute;inset:0;z-index:5;pointer-events:none}
-.christmas-ornament{pointer-events:auto;cursor:pointer;border:0;background:transparent;padding:3px;border-radius:50%;position:absolute;transform:translate(-50%,-50%);font:clamp(19px,3vw,27px)/1 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;filter:drop-shadow(0 2px 1px #79552c30)}
+.christmas-ornament{pointer-events:auto;cursor:pointer;border:0;background:transparent;padding:3px;border-radius:0;box-shadow:none;position:absolute;transform:translate(-50%,-50%);font:clamp(19px,3vw,27px)/1 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;filter:drop-shadow(0 2px 1px #79552c30)}
 .christmas-snow{position:absolute;color:#b99d58;font-size:33px}.snow-one{top:22%;left:6%}.snow-two{top:9%;right:12%;font-size:23px}
 .christmas-count{margin-top:16px!important;font-size:12px;color:#79663f}
 #christmas-tree h3{font-size:20px;font-family:'Kiwi Maru',serif;font-weight:500;margin:7px 0 18px}
@@ -36,6 +36,16 @@
 .christmas-form label span{font-size:11px;color:#786c59}
 .christmas-scene-help{font-size:11px;color:#786c59;margin-top:10px!important}
 .christmas-selected{min-height:45px;overflow-wrap:anywhere;font-size:12px;line-height:1.8;margin:12px 0 0!important;color:#506b56}
-.christmas-ornament[aria-pressed=true]{background:#fff7d0;box-shadow:0 0 0 2px #957330}
+.christmas-ornament[aria-pressed=true]{background:transparent;box-shadow:none}
 .christmas-refresh,.christmas-more{border:1px solid #b6a986;border-radius:8px;background:#fffdf7;color:#514c3f;font:inherit;font-size:12px;padding:9px 12px;cursor:pointer}
 .christmas-palette button:disabled{cursor:default;opacity:.7}
+
+.christmas-cake:focus-visible{outline:2px dashed #278591;outline-offset:4px}
+.christmas-placement-preview{position:absolute;z-index:7;pointer-events:none;transform:translate(-50%,-50%);font:clamp(19px,3vw,27px)/1 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;opacity:.65}
+.christmas-placement-help{font-size:11px;color:#786c59;line-height:1.9;margin:12px 0 8px!important}
+.christmas-confirm,.christmas-choose-place{border:1px solid #b6a986;border-radius:8px;background:#fffdf7;color:#514c3f;font:inherit;font-size:12px;padding:9px 12px;cursor:pointer}
+.christmas-confirm{background:#506b56;color:#fffdf2;border-color:#506b56;margin-bottom:8px}
+.christmas-choose-place{margin-top:10px}
+.christmas-confirm:disabled,.christmas-choose-place:disabled{opacity:.6;cursor:default}
+.christmas-ornament:focus:not(:focus-visible){outline:none}
+@media(max-width:680px){.christmas-placement-preview{font-size:23px}}

@@ -65,6 +65,56 @@ test('a daily retry keeps the original name and emoji; next day and next year ar
   assert.ok(values.has(`${christmasTestStoreKey}-2026`));
 });
 
+test('chosen position survives reload and participant changes, and daily retries keep the original placement', async () => {
+  const client = begin();
+  const position = { x: 23.45, y: 67.89 };
+  const first = await decorate(client, { position });
+  assert.deepEqual(first.mine.position, position);
+  assert.deepEqual(first.decorations[0].position, position);
+  position.x = 50;
+  assert.deepEqual(first.mine.position, { x: 23.45, y: 67.89 });
+  const reloaded = createChristmasTestClient({ today: () => day });
+  assert.deepEqual((await reloaded.request('status')).mine.position, { x: 23.45, y: 67.89 });
+  const friend = createChristmasTestClient({ person: 'friend', today: () => day });
+  const shared = await friend.request('status');
+  assert.equal(shared.mine, null);
+  assert.deepEqual(shared.decorations[0].position, { x: 23.45, y: 67.89 });
+  const duplicate = await decorate(client, { position: { x: 90, y: 90 }, nickname: '別名', emoji: '🎀' });
+  assert.equal(duplicate.counted, false);
+  assert.deepEqual(duplicate.mine, first.mine);
+  // Public snapshots do not expose mutable store objects or private participant fields.
+  shared.decorations[0].position.x = 3;
+  assert.deepEqual((await client.request('status')).mine.position, { x: 23.45, y: 67.89 });
+  assert.ok(!JSON.stringify(shared).includes('person'));
+});
+
+test('invalid positions are rejected and damaged stored positions cannot be displayed as valid data', async () => {
+  const client = begin();
+  for (const position of [null, {}, { x: 10 }, { y: 10 }, { x: NaN, y: 20 },
+    { x: Infinity, y: 20 }, { x: 20, y: -Infinity }, { x: '20', y: 20 },
+    { x: 2.99, y: 20 }, { x: 20, y: 97.01 }, [], 'center']) {
+    await assert.rejects(decorate(client, { position }), error => error.status === 400);
+  }
+  assert.equal((await client.request('status')).total, 0);
+  const first = await decorate(client, { position: { x: 3, y: 97 } });
+  assert.deepEqual(first.mine.position, { x: 3, y: 97 });
+  const key = `${christmasTestStoreKey}-2026`;
+  const saved = JSON.parse(values.get(key));
+  saved.decorations[0].position = { x: 101, y: 50 };
+  values.set(key, JSON.stringify(saved));
+  await assert.rejects(client.request('status'), error => error.status === 503);
+});
+
+test('legacy decorations without a position remain readable and omit the optional field', async () => {
+  const client = begin();
+  const first = await decorate(client);
+  assert.equal(Object.hasOwn(first.mine, 'position'), false);
+  const reloaded = createChristmasTestClient({ today: () => day });
+  const result = await reloaded.request('status');
+  assert.equal(Object.hasOwn(result.mine, 'position'), false);
+  assert.equal(Object.hasOwn(result.decorations[0], 'position'), false);
+});
+
 test('invalid content, stale date, off-season writes and invalid actions cannot save', async () => {
   const client = begin();
   for (const overrides of [{ emoji: '🍓🍮' }, { nickname: '' }, { nickname: 'あ'.repeat(21) }, { nickname: 'name\nother' }]) {

@@ -1,9 +1,12 @@
-import { isChristmasSeason, isEmoji, normalizeNickname } from './christmas-core.mjs';
+import { isChristmasSeason, isEmoji, normalizeNickname, isTreePosition } from './christmas-core.mjs?v=placement-1';
 
 // This adapter deliberately has no network transport or production identity.
 export const christmasTestStoreKey = 'poke-christmas-test-store-v1';
 const people = new Set(['me', 'friend']);
-const publicEntry = ({ id, day, emoji, nickname }) => ({ id, day, emoji, nickname });
+const publicEntry = ({ id, day, emoji, nickname, position }) => ({
+  id, day, emoji, nickname,
+  ...(position === undefined ? {} : { position: { x: position.x, y: position.y } }),
+});
 const failure = (message, status) => Object.assign(new Error(message), { status });
 
 function readStore(year) {
@@ -19,7 +22,8 @@ function readStore(year) {
     || value.decorations.some((entry, index) => {
       if (!entry || entry.id !== `${year}-${index + 1}` || !people.has(entry.person)
         || !isChristmasSeason(entry.day) || entry.day.slice(0, 4) !== year
-        || !isEmoji(entry.emoji) || !normalizeNickname(entry.nickname)) return true;
+        || !isEmoji(entry.emoji) || !normalizeNickname(entry.nickname)
+        || (entry.position !== undefined && !isTreePosition(entry.position))) return true;
       const uniqueDay = `${entry.person}-${entry.day}`;
       if (dates.has(uniqueDay)) return true;
       dates.add(uniqueDay);
@@ -74,6 +78,10 @@ export function createChristmasTestClient({ person = 'me', today } = {}) {
       if (!nickname || !isEmoji(payload.emoji)) {
         throw failure('ニックネームは1〜20文字、絵文字はひとつを選んでね。', 400);
       }
+      if (payload.position !== undefined && !isTreePosition(payload.position)) {
+        throw failure('飾る場所をツリーの中から選んでね。', 400);
+      }
+      const position = payload.position === undefined ? undefined : { x: payload.position.x, y: payload.position.y };
       if (payload.day !== day) {
         throw failure('テストの日付が変わりました。みんなの飾りを更新してから、もう一度飾ってね。', 409);
       }
@@ -85,7 +93,8 @@ export function createChristmasTestClient({ person = 'me', today } = {}) {
         const store = readStore(year);
         const existing = store.decorations.some(entry => entry.person === person && entry.day === day);
         if (existing) return { ...snapshot(day, store), counted: false };
-        const entry = { id: `${year}-${store.decorations.length + 1}`, day, emoji: payload.emoji, nickname, person };
+        const entry = { id: `${year}-${store.decorations.length + 1}`, day, emoji: payload.emoji, nickname, person,
+          ...(position === undefined ? {} : { position }) };
         const updated = { year, decorations: [...store.decorations, entry] };
         try {
           localStorage.setItem(`${christmasTestStoreKey}-${year}`, JSON.stringify(updated));

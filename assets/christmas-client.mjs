@@ -98,7 +98,8 @@ export function createChristmasClient() {
       const id = crypto.randomUUID();
       const body = action === 'status'
         ? { token, ...(payload.before === undefined ? {} : { before: payload.before }) }
-        : { token, emoji: payload.emoji, nickname: payload.nickname, day: payload.day };
+        : { token, emoji: payload.emoji, nickname: payload.nickname, day: payload.day,
+          ...(payload.position === undefined ? {} : { position: payload.position }) };
       return new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
           requests.delete(id);

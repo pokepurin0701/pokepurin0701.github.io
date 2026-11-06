@@ -1,6 +1,6 @@
-import { japanDay, isChristmasSeason } from './christmas-core.mjs';
-import { mountChristmasTree } from './christmas.mjs?v=test-1';
-import { createChristmasTestClient } from './christmas-test-client.mjs';
+import { japanDay, isChristmasSeason } from './christmas-core.mjs?v=placement-1';
+import { mountChristmasTree } from './christmas.mjs?v=placement-1';
+import { createChristmasTestClient } from './christmas-test-client.mjs?v=placement-1';
 
 const prefix = 'poke-christmas-test-';
 const dayKey = `${prefix}day`;

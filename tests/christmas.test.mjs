@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { japanDay, isChristmasSeason, isEmoji, normalizeNickname, ornamentPosition, parseTreeState } from '../assets/christmas-core.mjs';
+import { japanDay, isChristmasSeason, isEmoji, normalizeNickname, ornamentPosition, parseTreeState, isTreePosition } from '../assets/christmas-core.mjs';
 
 test('December opens and closes at midnight in Japan', () => {
   for (const [instant, expected, open] of [
@@ -45,6 +45,23 @@ test('shared snapshots preserve names, dates and mine while excluding private fi
   assert.deepEqual(parsed, snapshot);
   assert.notEqual(parsed.decorations[0], entry);
   assert.equal(parseTreeState({ ...snapshot, mine: null }).mine, null);
+});
+
+test('free positions are validated and preserved without affecting legacy entries', () => {
+  for (const position of [{ x: 3, y: 97 }, { x: 45.25, y: 61.5 }]) {
+    assert.equal(isTreePosition(position), true);
+    const item = { ...entry, position };
+    const parsed = parseTreeState({ ...snapshot, decorations: [item], mine: item });
+    assert.deepEqual(parsed.mine.position, position);
+    assert.deepEqual(parsed.decorations[0].position, position);
+    assert.notEqual(parsed.mine.position, position);
+  }
+  for (const position of [null, undefined, {}, { x: 50 }, { x: '50', y: 50 },
+    { x: NaN, y: 50 }, { x: Infinity, y: 50 }, { x: 2, y: 50 }, { x: 50, y: 98 }]) {
+    assert.equal(isTreePosition(position), false);
+    if (position !== undefined) assert.throws(() => parseTreeState({ ...snapshot, decorations: [{ ...entry, position }] }));
+  }
+  assert.equal('position' in parseTreeState(snapshot).decorations[0], false);
 });
 
 test('malformed shared snapshots cannot produce fake names, counts or duplicate positions', () => {

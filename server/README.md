@@ -34,8 +34,8 @@ worker.mjs / 0001_initial.sql / wrangler.jsonc は以前のCloudflare向け代�
 ツリーも既存のAppDeployアプリ `app-zlmhhw` に保存します。更新するファイルは `appdeploy/backend/index.ts`、`appdeploy/src/main.ts`、新規 `appdeploy/src/tree-bridge.ts` です。公開元スナップショットと差分を確認してから、既存アプリへフロントエンドとバックエンドをまとめて再デプロイしてください。別アプリやCloudflareの代替実装へ切り替える必要はありません。GitHubへのコミットだけでは共有APIは更新されません。
 
 - `POST /api/tree/status`：`token` と任意の `before` カーソルを受け取り、今年の飾りを新しい順に最大100件、総数、次のカーソル、本人の今日の飾りを返します。
-- `POST /api/tree/decorate`：`token`・`emoji`・`nickname`・確認済みの日本日付 `day` を受け取ります。12月限定で保存コードごとに1日1個。日付が変わった送信は409で拒否します。
-- 公開する飾りは `id`・`day`・`emoji`・`nickname` のみ。保存コードと識別ハッシュは公開しません。ニックネームは入力した公開名で、本人認証ではありません。
+- `POST /api/tree/decorate`：`token`・`emoji`・`nickname`・確認済みの日本日付 `day` と、任意の `position: {x, y}`（画像内の比率、各3〜97%）を受け取ります。12月限定で保存コードごとに1日1個。日付が変わった送信は409で拒否します。
+- 公開する飾りは `id`・`day`・`emoji`・`nickname` と任意の `position` のみ。保存コードと識別ハッシュは公開しません。ニックネームは入力した公開名で、本人認証ではありません。
 - DBの `christmas_daily`（日次の一意な枠）・`christmas_entries`（共有の飾り）・`christmas_totals`（年ごとの件数）を一つのトランザクションで保存します。同時送信や結果不明時の再送でも二重登録しません。既存の応援テーブルはそのままです。
 
 GitHub側は `?bridge=christmas` の専用iframeを通してSDKに接続します。フレームは既存の応援集計を実行しません。双方で送信元オリジンとウィンドウを照合します。公開ドメインを変える場合は `src/tree-bridge.ts` の `hostOrigin` と `assets/christmas-client.mjs` の接続先を確認してください。
