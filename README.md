@@ -4,13 +4,14 @@
 
 右下の「ぽけの遊び場へ」から、日替わりコンテンツ、訪問日数による変化、隠し実績などを遊べます。直接の入口は play.html です。
 
-進捗はブラウザ内保存で動きます。全員の応援集計・サーバー保存には [server/README.md](server/README.md) の追加設定が必要です。
+個人の進捗はブラウザ内に保存します。全員の応援集計はサーバーへ接続済みです。遊び場の企画欄から参加できます。[集計ページ](https://app-zlmhhw.v2.appdeploy.ai/) / [実装と保存方法](server/README.md)
 
 ## 確認
 
 ```sh
 node tests/core.test.mjs
 node tests/server.test.mjs
+node tests/counter.test.mjs
 node --check assets/play.mjs
 node --check server/worker.mjs
 ```

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ぽけを世界一甘やかす計画</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">POKE'S EVERYONE PROJECT</p>
+      <h1>ぽけを世界一甘やかす計画</h1>
+      <p>みんなの応援で、ぽけの居場所を豪華にしよう。</p>
+      <p><span id="total" class="number">0</span> 回の応援</p>
+      <progress
+        id="progress"
+        max="1000"
+        value="0"
+        aria-label="次の目標への進行"
+      ></progress>
+      <p id="next"></p>
+      <button id="praise" disabled>応援を準備しています…</button>
+      <button id="refresh">最新の集計を読む</button>
+      <p>今日の応援：<b id="daily">0</b> / 10</p>
+      <p id="message" role="status" aria-live="polite">
+        みんなの応援を読み込んでいます。
+      </p>
+      <ul id="goals"></ul>
+      <p class="note">
+        1日10回まで全体に加算します。その後も褒められます。日付は日本時間です。
+      </p>
+      <p class="note">
+        匿名の保存コード単位で記録します。ブラウザのデータを消すと、同じ参加者としての記録は失われます。
+      </p>
+    </main>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
+
