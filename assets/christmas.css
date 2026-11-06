@@ -1,0 +1,41 @@
+#christmas-tree[hidden]{display:none!important}
+#christmas-tree{color:#514c3f;background:#fffaf0;border:1px solid #d9cfb7;border-radius:24px;padding:clamp(20px,4vw,44px);margin:32px 0;box-sizing:border-box;overflow:hidden;font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif}
+#christmas-tree *{box-sizing:border-box}
+#christmas-tree h2,#christmas-tree h3,#christmas-tree p{margin:0}
+.christmas-label{font-size:10px;letter-spacing:.16em;color:#7d6743;font-weight:700}
+#christmas-tree h2{font-family:'Kiwi Maru',serif;font-weight:500;font-size:clamp(21px,3vw,30px);margin:8px 0 12px;line-height:1.7}
+.christmas-heading h2 span{display:inline-block}
+.christmas-heading>p{font-size:13px;line-height:2;color:#786c59}
+.christmas-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;align-items:center;margin-top:24px}
+.christmas-scene{position:relative;text-align:center;background:radial-gradient(ellipse at center,#f3ead0 0,transparent 68%);padding:0 8px 12px}
+.christmas-cake{position:relative;width:min(100%,350px);aspect-ratio:1/1.1;margin:auto;isolation:isolate}
+.christmas-cake-art{display:block;width:100%;height:100%;object-fit:contain}
+.christmas-ornaments{position:absolute;inset:0;z-index:5;pointer-events:none}
+.christmas-ornament{pointer-events:auto;cursor:pointer;border:0;background:transparent;padding:3px;border-radius:50%;position:absolute;transform:translate(-50%,-50%);font:clamp(19px,3vw,27px)/1 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;filter:drop-shadow(0 2px 1px #79552c30)}
+.christmas-snow{position:absolute;color:#b99d58;font-size:33px}.snow-one{top:22%;left:6%}.snow-two{top:9%;right:12%;font-size:23px}
+.christmas-count{margin-top:16px!important;font-size:12px;color:#79663f}
+#christmas-tree h3{font-size:20px;font-family:'Kiwi Maru',serif;font-weight:500;margin:7px 0 18px}
+.christmas-palette{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:22px}
+.christmas-palette button{min-height:46px;border:1px solid #d9cfb7;border-radius:12px;background:#fffdf7;font-size:25px;cursor:pointer;padding:6px;color:inherit}
+.christmas-palette button[aria-pressed=true]{background:#f9e5a8;border:2px solid #957330;box-shadow:0 2px 0 #d2b363}
+.christmas-palette button:hover{background:#f9edc9}
+.christmas-form label{display:block;font-size:12px;margin-bottom:8px}
+.christmas-input-row{display:flex;gap:10px;align-items:stretch}
+#christmas-emoji{width:70px;min-width:0;border:1px solid #b6a986;background:#fffef8;border-radius:10px;padding:9px;text-align:center;font-size:25px;color:#514c3f}
+.christmas-add{flex:1;border:0;border-radius:10px;background:#506b56;color:#fffdf2;padding:12px;font-family:inherit;font-size:13px;font-weight:700;line-height:1.6;cursor:pointer}
+.christmas-add:disabled{background:#e3e7d8;color:#54614d;cursor:default}
+#christmas-help{font-size:11px;color:#7c705b;margin-top:9px!important}
+.christmas-status{font-size:13px;line-height:1.9;margin-top:18px!important;min-height:50px}
+.christmas-storage-note{font-size:11px;line-height:1.9;color:#786c59;border-top:1px dashed #d9cfb7;padding-top:14px;margin-top:12px!important}
+.christmas-history{font-size:12px;margin-top:28px;border-top:1px dashed #d9cfb7;padding-top:22px}.christmas-history ol{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:8px;padding:12px 0;list-style:none}.christmas-history button{max-width:100%;overflow-wrap:anywhere;border:1px solid #d9cfb7;border-radius:8px;background:#fffdf7;color:inherit;font:inherit;text-align:left;padding:8px;cursor:pointer}.christmas-history-help{font-size:11px;color:#786c59;line-height:1.9}
+#christmas-tree button:focus-visible,#christmas-tree input:focus-visible,#christmas-tree summary:focus-visible{outline:3px solid #278591;outline-offset:3px}
+@media(max-width:680px){.christmas-layout{grid-template-columns:minmax(0,1fr);gap:24px}.christmas-cake{max-width:300px}.christmas-scene{max-width:360px;width:100%;margin:auto}.christmas-ornament{font-size:23px}.christmas-palette{gap:8px}}
+
+#christmas-nickname{width:100%;border:1px solid #b6a986;background:#fffef8;border-radius:10px;padding:10px 12px;font:inherit;color:inherit}
+#christmas-name-help{font-size:11px;line-height:1.9;color:#786c59;margin:7px 0 16px!important}
+.christmas-form label span{font-size:11px;color:#786c59}
+.christmas-scene-help{font-size:11px;color:#786c59;margin-top:10px!important}
+.christmas-selected{min-height:45px;overflow-wrap:anywhere;font-size:12px;line-height:1.8;margin:12px 0 0!important;color:#506b56}
+.christmas-ornament[aria-pressed=true]{background:#fff7d0;box-shadow:0 0 0 2px #957330}
+.christmas-refresh,.christmas-more{border:1px solid #b6a986;border-radius:8px;background:#fffdf7;color:#514c3f;font:inherit;font-size:12px;padding:9px 12px;cursor:pointer}
+.christmas-palette button:disabled{cursor:default;opacity:.7}

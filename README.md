@@ -14,6 +14,9 @@ node tests/story.test.mjs
 node tests/core.test.mjs
 node tests/server.test.mjs
 node tests/counter.test.mjs
+node tests/christmas.test.mjs
+node tests/christmas-server.test.mjs
+node tests/christmas-client.test.mjs
 node --check assets/play.mjs
 node --check server/worker.mjs
 ```
@@ -46,3 +49,13 @@ node --check server/worker.mjs
 回数で開く機能と、日付・時間で出る手紙の返事や事件は独立しています。ログインを繰り返しても手紙の待ち時間・訪問スタンプ・30訪問日の荷物は早送りされません。会員登録なしのため進捗は端末内の記録です。ブラウザのデータを消すと失われるため、進捗と物語それぞれの書き出しを利用してください。
 
 トップページには一般公開の遊び場紹介、canonical・OGP・JSON-LDを追加し、`sitemap.xml` と `robots.txt` を配置しています。検索エンジンへの登録・順位は保証しません。Search Consoleの所有権確認やサイトマップ送信は自動では行っていません。
+
+## 12月のお菓子ツリー
+
+毎年12月1日〜31日（日本時間）、トップページと遊び場に渦巻きの緑のクリーム・チョコの土台・金色の星のカップケーキツリーが現れます。みんなで同じツリーを飾り、ニックネームと絵文字をサーバーに保存します。絵文字を押すと、誰がいつ飾ったかが表示されます。一覧にも全員のニックネームが表示されます。表示名は本人認証ではありません。
+
+ニックネーム（1〜20文字）と絵文字を1個選び、匿名の保存コードごとに日本時間で1日1個デコレーションできます。サーバー側で日付と重複を検証します。通信失敗後も同じ送信を再試行でき、二重には登録されません。ツリーには新しい31個を表示し、履歴は100件ずつ追加取得できます。翌年は新しいツリーになります。ブラウザのデータを消しても公開済みの飾りは消えませんが、同じ参加者としての記録は失われます。
+
+`assets/christmas.mjs` が表示、`assets/christmas-client.mjs` と AppDeploy の `src/tree-bridge.ts` が厳密なオリジン検証付きの通信、`backend/index.ts` が共有DBへの保存を担当します。既存の応援集計と同じ保存コードを再利用し、公開データにコードや識別ハッシュを含めません。従来のブラウザ内だけの匿名の飾りは、公開ツリーへ自動送信しません。
+
+本番で共有するには、GitHub Pages側の変更に加えて、既存のAppDeployアプリ `app-zlmhhw` に更新したバックエンドとフロントエンドを再デプロイする必要があります。古い公開先や接続できない環境ではエラーを表示し、ブラウザ内の保存を共有成功として扱いません。詳しくは `server/README.md` を参照してください。

@@ -1,6 +1,8 @@
 import { api } from '@appdeploy/client';
 import './styles.css';
+import { installTreeBridge } from './tree-bridge';
 
+if (!installTreeBridge((path, body) => api.post(path, body))) {
 const hostOrigin = 'https://pokepurin0701.github.io';
 const embedded = window.parent !== window;
 const $ = (id: string) => document.getElementById(id)!;
@@ -155,4 +157,5 @@ render();
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden && !failed) status();
 });
+}
 
