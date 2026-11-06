@@ -109,6 +109,9 @@ export const handler = router({
           'Counter status failed',
           isAppDatabaseError(err) ? err.code : 'unknown'
         );
+        if (isAppDatabaseError(err) && err.code === 'AppDatabaseQuotaExceeded') {
+          return error('集計サーバーが混み合っています。時間をおいてご利用ください。', 429);
+        }
         return error('集計を読み込めませんでした。再試行してください。', 503);
       }
     },
@@ -129,6 +132,9 @@ export const handler = router({
           'Counter praise failed',
           isAppDatabaseError(err) ? err.code : 'unknown'
         );
+        if (isAppDatabaseError(err) && err.code === 'AppDatabaseQuotaExceeded') {
+          return error('集計サーバーが混み合っています。同じ応援は後から再試行できます。', 429);
+        }
         return error(
           '応援を確認できませんでした。同じ送信を再試行できます。',
           503
@@ -137,4 +143,3 @@ export const handler = router({
     },
   ],
 });
-
