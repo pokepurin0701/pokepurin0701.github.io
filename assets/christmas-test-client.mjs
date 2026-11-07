@@ -1,4 +1,4 @@
-import { isChristmasSeason, isEmoji, normalizeNickname, isTreePosition } from './christmas-core.mjs?v=placement-1';
+import { isDecemberDay, isChristmasSeason, isEmoji, normalizeNickname, isTreePosition } from './christmas-core.mjs?v=dec26-1';
 
 // This adapter deliberately has no network transport or production identity.
 export const christmasTestStoreKey = 'poke-christmas-test-store-v1';
@@ -21,7 +21,7 @@ function readStore(year) {
   if (value.year !== year || !Array.isArray(value.decorations)
     || value.decorations.some((entry, index) => {
       if (!entry || entry.id !== `${year}-${index + 1}` || !people.has(entry.person)
-        || !isChristmasSeason(entry.day) || entry.day.slice(0, 4) !== year
+        || !isDecemberDay(entry.day) || entry.day.slice(0, 4) !== year
         || !isEmoji(entry.emoji) || !normalizeNickname(entry.nickname)
         || (entry.position !== undefined && !isTreePosition(entry.position))) return true;
       const uniqueDay = `${entry.person}-${entry.day}`;
@@ -85,7 +85,7 @@ export function createChristmasTestClient({ person = 'me', today } = {}) {
       if (payload.day !== day) {
         throw failure('テストの日付が変わりました。みんなの飾りを更新してから、もう一度飾ってね。', 409);
       }
-      if (!isChristmasSeason(day)) throw failure('飾りつけは12月1日〜31日に開きます。', 403);
+      if (!isChristmasSeason(day)) throw failure('飾りつけは12月1日〜26日に開きます。', 403);
       const save = () => {
         if (closed) throw failure('テストへの接続は終了しました。ページを開き直してね。', 503);
         // Recheck after waiting for another tab's lock; never write into the old day.

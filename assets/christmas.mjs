@@ -1,5 +1,5 @@
-import { japanDay, isChristmasSeason, isEmoji, normalizeNickname, cupcakeDescription, ornamentPosition, parseTreeState, isTreePosition } from './christmas-core.mjs?v=placement-1';
-import { createChristmasClient } from './christmas-client.mjs?v=placement-1';
+import { japanDay, isChristmasSeason, isEmoji, normalizeNickname, cupcakeDescription, ornamentPosition, parseTreeState, isTreePosition } from './christmas-core.mjs?v=dec26-1';
+import { createChristmasClient } from './christmas-client.mjs?v=dec26-1';
 
 export function mountChristmasTree(host, { client = createChristmasClient(), today = japanDay, storageNamespace = 'poke-christmas' } = {}) {
   host.innerHTML = `
@@ -19,7 +19,7 @@ export function mountChristmasTree(host, { client = createChristmasClient(), tod
           <div class="christmas-palette" role="group" aria-labelledby="christmas-palette-label"></div>
           <label for="christmas-emoji">選んだ絵文字（入力して変えてもOK）</label>
           <div class="christmas-input-row"><input id="christmas-emoji" name="emoji" value="🍓" autocomplete="off" maxlength="40" required aria-describedby="christmas-help"></div>
-          <p id="christmas-help">日本時間で1人1日1個。12月1日〜31日限定。</p>
+          <p id="christmas-help">日本時間で1人1日1個。12月1日〜26日限定。</p>
           <button class="christmas-choose-place" type="button" disabled>③ ツリーで置く場所を選ぶ →</button>
         </form>
         <p class="christmas-status" role="status" aria-live="polite"></p>

@@ -6,8 +6,9 @@ test('December opens and closes at midnight in Japan', () => {
   for (const [instant, expected, open] of [
     ['2026-11-30T14:59:59Z', '2026-11-30', false],
     ['2026-11-30T15:00:00Z', '2026-12-01', true],
-    ['2026-12-31T14:59:59Z', '2026-12-31', true],
-    ['2026-12-31T15:00:00Z', '2027-01-01', false],
+    ['2026-12-26T14:59:59Z', '2026-12-26', true],
+    ['2026-12-26T15:00:00Z', '2026-12-27', false],
+    ['2026-12-31T14:59:59Z', '2026-12-31', false],
   ]) {
     assert.equal(japanDay(new Date(instant)), expected);
     assert.equal(isChristmasSeason(expected), open);

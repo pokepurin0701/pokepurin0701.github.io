@@ -6,7 +6,8 @@ export function japanDay(now = new Date()) {
   }).format(now);
 }
 
-export const isChristmasSeason = day => /^\d{4}-12-(0[1-9]|[12][0-9]|3[01])$/.test(day);
+export const isDecemberDay = day => /^\d{4}-12-(0[1-9]|[12][0-9]|3[01])$/.test(day);
+export const isChristmasSeason = day => isDecemberDay(day) && day.slice(-2) <= '26';
 
 export function isEmoji(value) {
   return typeof value === 'string' && value.length <= 40
@@ -52,7 +53,7 @@ export function parseTreeState(value) {
   const entry = item => {
     if (!item || typeof item.id !== 'string' || !/^\d{4}-[1-9]\d*$/.test(item.id)
       || item.id.slice(0, 4) !== value.year || !Number.isSafeInteger(Number(item.id.slice(5)))
-      || !isChristmasSeason(item.day) || item.day.slice(0, 4) !== value.year
+      || !isDecemberDay(item.day) || item.day.slice(0, 4) !== value.year
       || !isEmoji(item.emoji) || !normalizeNickname(item.nickname)
       || (item.position !== undefined && !isTreePosition(item.position))) return invalid();
     return { id: item.id, day: item.day, emoji: item.emoji, nickname: normalizeNickname(item.nickname),

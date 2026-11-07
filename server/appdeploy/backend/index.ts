@@ -101,6 +101,7 @@ type TreeEntry = Omit<TreeDecoration, 'id'>;
 type TreeDaily = TreeEntry & { entryId: string };
 const treeSegmenter = new Intl.Segmenter('ja', { granularity: 'grapheme' });
 const treePageSize = 100;
+const treeSeasonOpen = (value: string) => /^\d{4}-12-(0[1-9]|1[0-9]|2[0-6])$/.test(value);
 
 function validTreeEmoji(value: unknown): value is string {
   return typeof value === 'string' && value.length <= 40
@@ -143,7 +144,7 @@ async function readTreeStatus(token: string, before?: number) {
   return {
     day: today,
     year,
-    seasonOpen: today.slice(5, 7) === '12',
+    seasonOpen: treeSeasonOpen(today),
     total,
     decorations,
     nextCursor: start > 1 && ids.length ? start : null,
@@ -161,8 +162,8 @@ function requireTreeDay(expectedDay: string) {
   const today = day();
   if (today !== expectedDay)
     throw new TreeRequestError('日付が変わりました。最新のツリーを読み込んでから、もう一度飾ってね。', 409);
-  if (today.slice(5, 7) !== '12')
-    throw new TreeRequestError('飾りつけは12月1日〜31日に開きます。', 403);
+  if (!treeSeasonOpen(today))
+    throw new TreeRequestError('飾りつけは12月1日〜26日に開きます。', 403);
 }
 async function decorateTree(token: string, emoji: string, nickname: string, expectedDay: string, position?: TreePosition) {
   requireTreeDay(expectedDay);

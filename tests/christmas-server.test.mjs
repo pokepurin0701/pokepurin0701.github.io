@@ -231,12 +231,14 @@ test('JST midnight controls December opening, daily allowance, and year isolatio
   assert.equal((await decorate()).statusCode, 409);
   assert.equal((await call('status', {token})).body.mine, null);
   assert.equal((await decorate({day: '2026-12-02'})).body.total, 2);
-  setDay('2026-12-31T14:59:59Z');
-  assert.equal((await decorate({day: '2026-12-31'})).body.total, 3);
-  setDay('2026-12-31T15:00:00Z');
+  setDay('2026-12-26T14:59:59Z');
+  assert.equal((await decorate({day: '2026-12-26'})).body.total, 3);
+  setDay('2026-12-26T15:00:00Z');
   assert.equal((await call('status', {token})).body.seasonOpen, false);
+  assert.equal((await decorate({day: '2026-12-27'})).statusCode, 403);
+  setDay('2026-12-31T15:00:00Z');
   assert.equal((await decorate({day: '2027-01-01'})).statusCode, 403);
-  assert.equal((await decorate({day: '2026-12-31'})).statusCode, 409);
+  assert.equal((await decorate({day: '2026-12-26'})).statusCode, 409);
   setDay('2027-11-30T15:00:00Z');
   assert.equal((await call('status', {token})).body.total, 0);
   const nextYear = await decorate({day: '2027-12-01'});
@@ -270,9 +272,9 @@ test('invalid inputs cannot write; single joined emoji and normalized nicknames 
 
 test('a request crossing midnight while reading prerequisites cannot write the previous day', async () => {
   begin();
-  setDay('2026-12-31T14:59:59Z');
-  onRead(name => { if (name === 'christmas_totals') setDay('2026-12-31T15:00:00Z'); });
-  const result = await decorate({day: '2026-12-31'});
+  setDay('2026-12-26T14:59:59Z');
+  onRead(name => { if (name === 'christmas_totals') setDay('2026-12-26T15:00:00Z'); });
+  const result = await decorate({day: '2026-12-26'});
   assert.equal(result.statusCode, 409);
   assert.equal(tables.get('christmas_entries')?.size || 0, 0);
   assert.equal(tables.get('christmas_daily')?.size || 0, 0);

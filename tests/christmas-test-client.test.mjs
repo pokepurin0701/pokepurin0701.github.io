@@ -123,7 +123,7 @@ test('invalid content, stale date, off-season writes and invalid actions cannot 
   await assert.rejects(decorate(client, { day: '2026-12-02' }), error => error.status === 409);
   await assert.rejects(client.request('status', { before: -1 }), error => error.status === 400);
   await assert.rejects(client.request('erase'), error => error.status === 400);
-  day = '2026-11-30';
+  day = '2026-12-27';
   assert.equal((await client.request('status')).seasonOpen, false);
   await assert.rejects(decorate(client), error => error.status === 403);
   assert.equal([...values.keys()].filter(key => key.startsWith(christmasTestStoreKey)).length, 0);
