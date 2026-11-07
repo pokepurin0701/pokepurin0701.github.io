@@ -1,19 +1,20 @@
+import {motifForTitle} from './poke-sweets.mjs?v=sweets-1';
 // Identity is determined only by entry count. This module unlocks no facility.
 export const ROYAL_GOAL = 50000;
 export const royalRanks = [
  {at:0,id:'traveler',name:'お菓子の国の旅人',short:'旅人',crest:'🍪',color:'cream',effect:'crumbs',line:'ようこそ。きみのために、小さな身分証を用意したよ。'},
  {at:10,id:'citizen',name:'キャンディの国民',short:'国民',crest:'🍬',color:'sky',effect:'sparkles',line:'今日から、きみもこの国の仲間だよ。'},
- {at:30,id:'artisan',name:'クッキーの菓子職人',short:'菓子職人',crest:'🥨',color:'custard',effect:'seal',line:'きみの優しさで、この国のお菓子はもっと甘くなるね。'},
- {at:100,id:'knight',name:'ビスケットの騎士',short:'騎士',crest:'⚜',color:'sky',effect:'ribbon',line:'きみがいてくれると、ぽけは安心できるよ。'},
- {at:300,id:'baron',name:'マカロンの男爵',short:'男爵',crest:'✿',color:'rose',effect:'petals',line:'きみのための特別な席を、王城に用意したよ。'},
+ {at:30,id:'artisan',name:'クッキーの菓子職人',short:'菓子職人',crest:'🍪',color:'custard',effect:'seal',line:'きみの優しさで、この国のお菓子はもっと甘くなるね。'},
+ {at:100,id:'knight',name:'ビスケットの騎士',short:'騎士',crest:'🍪',color:'sky',effect:'ribbon',line:'きみがいてくれると、ぽけは安心できるよ。'},
+ {at:300,id:'baron',name:'マカロンの男爵',short:'男爵',crest:'🩷',color:'rose',effect:'petals',line:'きみのための特別な席を、王城に用意したよ。'},
  {at:1000,id:'viscount',name:'ショコラの子爵',short:'子爵',crest:'🍫',color:'custard',effect:'seal',line:'千回の「ただいま」を、この国の宝物にしよう。'},
- {at:3000,id:'earl',name:'タルトの伯爵',short:'伯爵',crest:'✦',color:'sky',effect:'stars',line:'きみと過ごした時間が、国じゅうで輝いているよ。'},
- {at:5000,id:'marquis',name:'パフェの侯爵',short:'侯爵',crest:'♜',color:'rose',effect:'ribbon',line:'この国の景色が、きみと一緒に少しずつ育ってきたね。'},
- {at:10000,id:'duke',name:'プリンの公爵',short:'公爵',crest:'♛',color:'gold',effect:'crown',line:'一万回も会いに来てくれて、ありがとう。きみはこの国の誇りだよ。'},
- {at:20000,id:'royal',name:'クリームの王族',short:'王族',crest:'♔',color:'sky',effect:'aurora',line:'おかえり。王城にも、きみの居場所があるよ。'},
- {at:30000,id:'guardian',name:'お菓子の国の守護者',short:'守護者',crest:'✧',color:'gold',effect:'stars',line:'きみが大切にしてくれたこの国を、ぽけもずっと大切にするね。'},
- {at:50000,id:'legend',name:'お菓子の国の伝説',short:'伝説',crest:'👑',color:'legend',effect:'constellation',line:'五万回の出会いを、ありがとう。きみの名前は、この国の物語にずっと残るよ。'}
-];
+ {at:3000,id:'earl',name:'タルトの伯爵',short:'伯爵',crest:'🥧',color:'sky',effect:'stars',line:'きみと過ごした時間が、国じゅうで輝いているよ。'},
+ {at:5000,id:'marquis',name:'パフェの侯爵',short:'侯爵',crest:'🍨',color:'rose',effect:'ribbon',line:'この国の景色が、きみと一緒に少しずつ育ってきたね。'},
+ {at:10000,id:'duke',name:'プリンの公爵',short:'公爵',crest:'🍮',color:'gold',effect:'crown',line:'一万回も会いに来てくれて、ありがとう。きみはこの国の誇りだよ。'},
+ {at:20000,id:'royal',name:'クリームの王族',short:'王族',crest:'🧁',color:'sky',effect:'aurora',line:'おかえり。王城にも、きみの居場所があるよ。'},
+ {at:30000,id:'guardian',name:'お菓子の国の守護者',short:'守護者',crest:'🍰',color:'gold',effect:'stars',line:'きみが大切にしてくれたこの国を、ぽけもずっと大切にするね。'},
+ {at:50000,id:'legend',name:'お菓子の国の伝説',short:'伝説',crest:'🍰',color:'legend',effect:'constellation',line:'五万回の出会いを、ありがとう。きみの名前は、この国の物語にずっと残るよ。'}
+].map((rank,index)=>({...rank,motif:motifForTitle(rank.name),ornament:index}));
 export function royalStatus(logins){
  const count=Number.isSafeInteger(logins)&&logins>=0?logins:0;
  const index=royalRanks.findLastIndex(rank=>count>=rank.at),current=royalRanks[index],next=royalRanks[index+1]||null;

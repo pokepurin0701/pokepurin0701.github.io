@@ -1,7 +1,7 @@
-import {kingdomText} from './poke-royal.mjs?v=royal-1';
-import {canUse} from './poke-growth.mjs?v=royal-1';
-import {previewEnabled} from './poke-growth-ui.mjs?v=royal-1';
-import {makeState,dayNow,hourNow,dateLabel,enter,choose,resolve,addMemory} from './poke-story.mjs?v=royal-1';
+import {kingdomText} from './poke-royal.mjs?v=sweets-1';
+import {canUse} from './poke-growth.mjs?v=sweets-1';
+import {previewEnabled} from './poke-growth-ui.mjs?v=sweets-1';
+import {makeState,dayNow,hourNow,dateLabel,enter,choose,resolve,addMemory} from './poke-story.mjs?v=sweets-1';
 const key='poke-connected-story-v1', $=id=>document.getElementById(id);
 const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const text=x=>esc(x).replaceAll('\n','<br>');

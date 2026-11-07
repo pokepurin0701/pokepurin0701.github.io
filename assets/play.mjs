@@ -1,11 +1,11 @@
-import {renderRoyal,resetRoyalAnnouncement} from './poke-royal-ui.mjs?v=royal-1';
-import {kingdomText} from './poke-royal.mjs?v=royal-1';
-import {canUse,stageAt,nextStage} from './poke-growth.mjs?v=royal-1';
-import {renderGrowth,previewEnabled} from './poke-growth-ui.mjs?v=royal-1';
-import {entrySession} from './poke-entry.mjs?v=royal-1';
-import {renderStory,restoreStoryLabels} from './poke-story-ui.mjs?v=royal-1';
+import {renderRoyal,resetRoyalAnnouncement} from './poke-royal-ui.mjs?v=sweets-1';
+import {kingdomText} from './poke-royal.mjs?v=sweets-1';
+import {canUse,stageAt,nextStage} from './poke-growth.mjs?v=sweets-1';
+import {renderGrowth,previewEnabled} from './poke-growth-ui.mjs?v=sweets-1';
+import {entrySession} from './poke-entry.mjs?v=sweets-1';
+import {renderStory,restoreStoryLabels} from './poke-story-ui.mjs?v=sweets-1';
 import './counter-bridge.mjs';
-import {initial,applyAction,rank,news,sayings,rules,milestones,dayKey,dayNumber} from './poke-core.mjs?v=royal-1';
+import {initial,applyAction,rank,news,sayings,rules,milestones,dayKey,dayNumber} from './poke-core.mjs?v=sweets-1';
 const $=s=>document.querySelector(s),key='poke-play-v1',tokenKey='poke-play-token',api=String(window.POKE_API_URL||'').replace(/\/$/,'');
 let state=initial(),demo=null,tab='today',total=null,busy=false,timer,saveFailed=false,loadFailed=false;
 try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved)state=validate(saved);}catch{saveFailed=true;loadFailed=true;}

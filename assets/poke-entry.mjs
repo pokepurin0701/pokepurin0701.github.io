@@ -1,4 +1,4 @@
-import {initial,applyAction} from './poke-core.mjs?v=royal-1';
+import {initial,applyAction} from './poke-core.mjs?v=sweets-1';
 const sessionKey='poke-entry-session-v1',idle=30*60*1000;
 let memory;
 // A session spans page navigation and reloads in this tab. A new tab or a

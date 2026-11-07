@@ -1,4 +1,4 @@
-import {stages,stageAt,nextStage,dailyLines} from './poke-growth.mjs?v=royal-1';
+import {stages,stageAt,nextStage,dailyLines} from './poke-growth.mjs?v=sweets-1';
 const $=id=>document.getElementById(id);
 export const previewEnabled=()=>new URLSearchParams(globalThis.location?.search||'').get('preview')==='1';
 let currentVisits=0,inDemo=false;

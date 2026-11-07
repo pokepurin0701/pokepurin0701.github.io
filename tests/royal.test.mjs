@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {sweetMotifs,motifForTitle} from '../assets/poke-sweets.mjs';
 import {royalRanks,royalStatus,promotionBetween,kingdomText} from '../assets/poke-royal.mjs';
 import {initial,applyAction,rank} from '../assets/poke-core.mjs';
 import {canUse} from '../assets/poke-growth.mjs';
@@ -10,7 +11,7 @@ const memory=()=>{const map=new Map();return {getItem:k=>map.get(k)||null,setIte
 test('every royal title has exact before/at/after boundaries and changing crests/lines',()=>{
  for(let i=0;i<royalRanks.length;i++){
   const r=royalRanks[i];assert.equal(royalStatus(r.at).current,r);assert.equal(royalStatus(r.at+1).current,r);assert.equal(rank(r.at),r.name);
-  if(i){assert.equal(royalStatus(r.at-1).current,royalRanks[i-1]);assert.equal(promotionBetween(r.at-1,r.at),r);assert.notEqual(r.crest,royalRanks[i-1].crest);assert.notEqual(r.line,royalRanks[i-1].line);}
+  if(i){assert.equal(royalStatus(r.at-1).current,royalRanks[i-1]);assert.equal(promotionBetween(r.at-1,r.at),r);assert.ok(sweetMotifs[r.motif]);assert.equal(r.motif,motifForTitle(r.name));assert.notEqual(r.line,royalRanks[i-1].line);}
  }
  assert.equal(royalStatus(50000).complete,true);assert.equal(royalStatus(50001).remaining,0);assert.equal(royalStatus(50000).next,null);assert.equal(royalStatus(49999).remaining,1);assert.equal(royalStatus(50000).progress,1);
  for(const n of [-1,NaN,Infinity,'50000'])assert.equal(royalStatus(n).count,0);
