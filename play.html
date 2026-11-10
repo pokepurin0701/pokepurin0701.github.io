@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f9d866">
   <title>ぷりんの遊び場｜通うほど育つ、ぽけぷりんのひみつ基地</title>
-  <meta name="description" content="ぽけぷりんと過ごす、登録不要の遊び場。入場10回・30回で新しい部屋が開き、訪問日や時間で手紙と事件が変わります。最初は小さく、通うほどあなたの居場所が育ちます。">
+  <meta name="description" content="ぽけぷりんと過ごす、登録不要の遊び場。ログインで身分が育ち、訪問10日・30日で新しい部屋が開き、訪問日や時間で手紙と事件が変わります。最初は小さく、通うほどあなたの居場所が育ちます。">
   <link rel="icon" href="assets/fridge/9cf7154717bd7fa6.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/play.css?v=growth-2">
-  <link rel="stylesheet" href="assets/poke-story.css?v=growth-2">
+  <link rel="stylesheet" href="assets/play.css?v=sweets-2">
+  <link rel="stylesheet" href="assets/poke-story.css?v=sweets-2">
+  <link rel="stylesheet" href="assets/poke-royal.css?v=sweets-2">
   <script src="assets/poke-config.js"></script>
-  <script type="module" src="assets/play.mjs?v=growth-2"></script>
+  <script type="module" src="assets/play.mjs?v=sweets-2"></script>
 
   <link rel="canonical" href="https://pokepurin0701.github.io/play.html">
   <meta name="robots" content="index,follow">
@@ -18,7 +19,7 @@
   <meta property="og:locale" content="ja_JP">
   <meta property="og:site_name" content="ぷりんの遊び場｜ぽけぷりん">
   <meta property="og:title" content="ぷりんの遊び場｜通うほど育つ、ぽけぷりんのひみつ基地">
-  <meta property="og:description" content="ぽけぷりんと過ごす、登録不要の遊び場。入場10回・30回で新しい部屋が開き、訪問日や時間で手紙と事件が変わります。最初は小さく、通うほどあなたの居場所が育ちます。">
+  <meta property="og:description" content="ぽけぷりんと過ごす、登録不要の遊び場。ログインで身分が育ち、訪問10日・30日で新しい部屋が開き、訪問日や時間で手紙と事件が変わります。最初は小さく、通うほどあなたの居場所が育ちます。">
   <meta property="og:url" content="https://pokepurin0701.github.io/play.html">
   <meta property="og:image" content="https://pokepurin0701.github.io/assets/fridge/c07ea34707ca730c.webp">
   <meta property="og:image:alt" content="ウインクするVTuberぽけぷりん">
@@ -34,7 +35,7 @@
       <a href="./" class="home">← ぽけの冷蔵庫へ</a>
       <button id="logo" class="wordmark" aria-label="ぽけの遊び場の看板をつつく">
         <img src="assets/fridge/9cf7154717bd7fa6.svg" alt="" width="50" height="50">
-        <span>ぽけの<em>あそびば。</em><small>POKE'S SECRET CLUBHOUSE</small></span>
+        <span>ぽけの<em>あそびば。</em><small>POKE'S SWEET KINGDOM</small></span>
       </button>
       <p class="sidebar-caption">いつもの場所に、<br>まだ知らないひみつ。</p>
       <nav aria-label="遊び場メニュー">
@@ -42,9 +43,9 @@
         <button data-tab="letters" aria-pressed="false"><span class="nav-icon" aria-hidden="true">✉</span><span>ぽけからの手紙<small>忘れたころに、きみ宛て。</small></span><span class="nav-arrow">↗</span></button>
         <button data-tab="collection" aria-pressed="false"><span class="nav-icon" aria-hidden="true">♧</span><span>たからもの<small>集めたひみつを飾ろう。</small></span><span class="nav-arrow">↗</span></button>
         <button data-tab="album" aria-pressed="false"><span class="nav-icon" aria-hidden="true">▤</span><span>事件アルバム<small>なんでもない、大事件。</small></span><span class="nav-arrow">↗</span></button>
-        <button data-tab="office" aria-pressed="false"><span class="nav-icon" aria-hidden="true">⚑</span><span>ぽけ運営室<small>立ち入り、歓迎です。</small></span><span class="nav-arrow">↗</span></button>
+        <button data-tab="office" aria-pressed="false"><span class="nav-icon" aria-hidden="true">⚑</span><span>王城の広間<small>立ち入り、歓迎です。</small></span><span class="nav-arrow">↗</span></button>
       </nav>
-      <div class="member-pass"><span class="eyebrow">YOUR MEMBER PASS</span><p id="rank"></p><div class="pass-numbers"><span id="loginCount"></span><span id="visits"></span><span id="coins"></span></div><button id="checkin">今日の訪問を記録</button><p class="pass-note">お休みしても、あなたの席はここ。</p><span class="pass-star" aria-hidden="true">✦</span></div>
+      <div class="member-pass"><span class="eyebrow">KINGDOM RECORD</span><p id="rank"></p><div class="pass-numbers"><span id="loginCount"></span><span id="visits"></span><span id="coins"></span></div><button id="checkin">今日の訪問を記録</button><p class="pass-note">お休みしても、あなたの席はここ。</p><span class="pass-star" aria-hidden="true">✦</span></div>
       <div class="sidebar-bottom"><span class="live-dot"></span><span class="stamp">ぽけがのんびり営業中。</span></div>
     </aside>
     <main>
@@ -52,18 +53,29 @@
       <section id="christmas-tree" aria-labelledby="christmas-title" hidden></section>
       <section id="growthUnlock" class="growth-unlock" hidden aria-live="polite"></section>
       <div class="ticker"><span class="ticker-label"><i></i>どうでもいい速報</span><span id="news"></span><span class="ticker-star" aria-hidden="true">✳</span></div>
-      <section class="hero" aria-labelledby="heroTitle">
-        <div class="hero-grid" aria-hidden="true"></div>
-        <div class="hero-copy"><span class="hero-label"><span aria-hidden="true">★</span> ぽけのひみつ基地、開いてます。</span><h1 id="heroTitle">今日も、ぽけに<br><span>巻きこまれよう。</span></h1><p>褒めたり、ひみつを探したり。<br>気づいたら、あなたもここの常連さん。</p><div class="hero-actions"><button id="heroPlay" class="primary">ぽけとあそぶ <span>↗</span></button><button id="heroMap" class="text-link">ひみつの地図を見る <span>→</span></button></div><span class="hero-footnote">何回通っても、まだ知らないぽけがいる。</span></div>
-        <div class="hero-visual"><div class="hero-orbit" aria-hidden="true"></div><span class="hero-spark spark-one" aria-hidden="true">✦</span><span class="hero-spark spark-two" aria-hidden="true">✳</span><img id="heroCharacter" src="assets/fridge/c07ea34707ca730c.webp" alt="ウインクしてハートを作るぽけぷりん" width="800" height="1100" fetchpriority="high"><span id="heroSpeech" class="hero-speech">今日も来たんですね。<br>とりあえず、褒めてください。</span><span class="hero-sticker">本日の主役<br><b>ぽけです。</b></span></div>
+      <section class="hero royal-hero" aria-labelledby="heroTitle">
+        <div class="hero-copy"><span class="royal-eyebrow">POKEPURIN'S SWEET KINGDOM</span><h1 id="heroTitle">お菓子の国の、<br><span>きみの身分証。</span></h1><p class="royal-intro">おかえり。今日のきみは、どんな身分？</p>
+          <article id="royalPass" class="royal-pass" aria-label="お菓子の国の身分証">
+            <div class="royal-pass-top"><span class="royal-pass-brand">ROYAL PASS <small>お菓子の国・身分証</small></span><span class="royal-tier-group"><span id="royalTier"></span><span id="royalJewels" class="royal-jewels" aria-hidden="true"></span></span></div>
+            <div class="royal-identity"><div id="royalCrest" class="royal-crest"></div><div class="royal-nameplate"><span class="royal-caption">この国での名前</span><div class="royal-name-row"><h2 id="royalUsername"></h2><button id="royalEditName" type="button" aria-label="身分証の名前を変更">✎</button></div><p class="royal-title-row"><span class="royal-title-label">称号</span><span id="royalTitle"></span></p><span class="royal-identity-note">きみとぽけの、甘い物語の証。</span></div></div>
+            <div class="royal-count"><span>累計ログイン回数</span><strong id="royalLogins"></strong><small>回</small></div>
+            <div class="royal-next"><div><span>次の称号</span><b id="royalNext"></b></div><strong id="royalRemaining"></strong></div>
+            <div id="royalMeter" class="royal-meter" role="progressbar" aria-label="次の身分までのログイン回数"><span id="royalProgress"></span></div><div class="royal-scale"><span id="royalStart"></span><span id="royalEnd"></span></div>
+            <div class="royal-pass-foot"><span>✦ ぽけぷりん王国発行</span><span id="royalGoal"></span></div><div id="royalParticles" class="royal-particles" aria-hidden="true"></div>
+          </article>
+          <div class="royal-links"><button id="royalRoad" class="text-link">身分の道のりを見る ↗</button><span id="royalDemo" hidden>おためしの身分証</span><button id="royalTryPromotion" class="text-link" hidden>この身分の昇格演出を試す ✧</button></div>
+          <div class="hero-actions"><button id="heroPlay" class="primary">今日の国をのぞく <span>↗</span></button><button id="heroMap" class="text-link">施設の地図を見る <span>→</span></button></div>
+        </div>
+        <div class="hero-visual"><div class="hero-orbit" aria-hidden="true"></div><span class="royal-cloud royal-cloud-one" aria-hidden="true">✧</span><span class="royal-cloud royal-cloud-two" aria-hidden="true">✦</span><img id="heroCharacter" src="assets/fridge/c07ea34707ca730c.webp" alt="お菓子の国で身分証を案内するぽけぷりん" width="800" height="1100" fetchpriority="high"><p id="heroSpeech" class="hero-speech"></p><span class="hero-sticker">きみだけの<br><b>ROYAL PASS</b></span><p class="royal-world-note">ログインで身分が育ち、<br>訪問日で世界が広がる。</p></div>
       </section>
+      <section id="royalPromotion" class="royal-promotion" role="status" aria-live="polite" hidden><div><h2 id="royalPromotionTitle"></h2><p id="royalPromotionLine"></p></div><button id="royalDismiss" aria-label="昇格のお知らせを閉じる">×</button></section>
       <section id="growthGarden" class="growth-garden" aria-label="訪問するたび育つプリンの庭"></section>
       <section class="next-secret" aria-labelledby="nextSecretTitle"><div class="secret-icon" aria-hidden="true">✉</div><div class="secret-copy"><p class="eyebrow">YOUR NEXT LITTLE SURPRISE</p><h2 id="nextSecretTitle">次のひみつを準備中…</h2><p id="nextSecretHint"></p></div><div class="secret-progress"><span id="nextSecretDays"></span><div class="meter"><span id="nextSecretBar"></span></div></div></section>
       <div id="demo" class="demo-banner" hidden>未来の見学中です。ここで遊んでも、本当の進捗や全員の応援数には保存されません。<button id="leavePreview">自分の進捗に戻る →</button></div>
       <section id="playContent" class="play-content" tabindex="-1"><div class="section-heading"><div><p id="sectionEyebrow" class="eyebrow">TODAY'S LITTLE ADVENTURE</p><h2 id="sectionTitle">さて、今日は何してあそぶ？</h2></div><span id="sectionNote">ぽけは、あなた待ち。</span></div><div id="storyArea"></div><div id="content"></div></section>
       <footer>
         <div class="footer-sign"><img src="assets/fridge/9cf7154717bd7fa6.svg" alt="" width="38" height="38"><p>また、ふらっと来てね。<small>POKEPURIN'S SECRET CLUBHOUSE</small></p><a href="./">冷蔵庫にもどる ↗</a></div>
-        <details class="utility"><summary>進捗の保存・この遊び場について <span>＋</span></summary><div class="utility-body"><p id="storage" class="note"></p><p id="loginRule" class="note"></p><div class="backup-actions"><button id="backup">進捗を書き出す</button><label class="import">進捗を読み込む<input id="restore" type="file" accept="application/json"></label><button id="transfer" hidden>別の端末へ引き継ぐ</button></div><label class="preview-control">ちょっと先の遊び場を見学する<select id="preview"><option value="0">自分の進捗</option><option value="1">1回目</option><option value="9">9回目</option><option value="10">10回目</option><option value="29">29回目</option><option value="30">30回目</option><option value="50">50回目</option><option value="75">75回目</option><option value="100">100回目</option><option value="150">150回目</option><option value="200">200回目</option><option value="250">250回目</option><option value="300">300回目</option></select></label><p class="note">会員登録は不要です。冷蔵庫か遊び場を開いた日を、日本時間で1日1回記録します。同じ日の再読み込みでは増えません。部屋はログイン累計10・30・50回…で増え、手紙の後日談や訪問スタンプは実際の日付で変化します。お休みしても記録は減りません。コイン・業務・規約は、この遊び場の中だけのお楽しみです。</p></div></details><p class="tiny">あまいものを英語で言うと、ひみつの扉が開くかも。</p>
+        <details class="utility"><summary>進捗の保存・この国について <span>＋</span></summary><div class="utility-body"><p id="storage" class="note"></p><p id="loginRule" class="note"></p><div class="backup-actions"><button id="backup">進捗を書き出す</button><label class="import">進捗を読み込む<input id="restore" type="file" accept="application/json"></label><button id="transfer" hidden>別の端末へ引き継ぐ</button></div><label class="preview-control">身分のログイン回数を見学する<select id="preview"><option value="0">自分の進捗</option><option value="1">1回目</option><option value="9">9回目</option><option value="10">10回目</option><option value="29">29回目</option><option value="30">30回目</option><option value="50">50回目</option><option value="75">75回目</option><option value="100">100回目</option><option value="150">150回目</option><option value="200">200回目</option><option value="250">250回目</option><option value="300">300回目</option><option value="1000">1,000回目</option><option value="3000">3,000回目</option><option value="5000">5,000回目</option><option value="10000">10,000回目</option><option value="20000">20,000回目</option><option value="30000">30,000回目</option><option value="50000">50,000回目</option></select></label><label class="preview-control">施設の累計訪問日数を見学する<select id="previewVisits"><option value="0">自分の訪問日数</option><option value="1">1日</option><option value="9">9日</option><option value="10">10日</option><option value="29">29日</option><option value="30">30日</option><option value="50">50日</option><option value="75">75日</option><option value="100">100日</option><option value="150">150日</option><option value="200">200日</option><option value="250">250日</option><option value="300">300日</option></select></label><p class="note">会員登録は不要です。冷蔵庫か遊び場を開いた日を、日本時間で1日1回記録します。同じ日の再読み込みでは増えません。身分はログイン回数で昇格し、施設は累計訪問10・30・50日…で増え、手紙の後日談や訪問スタンプは実際の日付で変化します。お休みしても記録は減りません。コイン・王城のお手伝い・規約は、この遊び場の中だけのお楽しみです。</p></div></details><p class="tiny">あまいものを英語で言うと、ひみつの扉が開くかも。</p>
       </footer>
     </main>
   </div>

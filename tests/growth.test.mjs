@@ -17,13 +17,10 @@ test('Japan midnight changes the visiting day while keeping an active login sess
  const store=storage(),tab=storage();recordEntry(new Date('2026-11-06T14:59:00Z'),store,tab);
  const s=recordEntry(new Date('2026-11-06T15:01:00Z'),store,tab);assert.equal(s.visits,2);assert.equal(s.logins,1);assert.equal(s.lastVisit,'2026-11-07');
 });
-test('ten and thirty entries unlock rooms without waiting for ten or thirty days',()=>{
+test('many logins on one date do not unlock facilities',()=>{
  const store=storage();let s;
- for(let i=0;i<30;i++){
-  s=recordEntry(new Date(time.getTime()+i*1000),store,storage());assert.equal(s.logins,i+1);assert.equal(s.visits,1);
-  assert.equal(canUse('letters',s.logins),i>=9);assert.equal(canUse('office',s.logins),i>=29);
- }
- assert.ok(s.items.includes('30回記念の表彰状'));assert.ok(!canUse('shared',s.logins));
+ for(let i=0;i<30;i++){s=recordEntry(new Date(time.getTime()+i*1000),store,storage());assert.equal(s.logins,i+1);assert.equal(s.visits,1);assert.equal(canUse('letters',s.visits),false);assert.equal(canUse('office',s.visits),false);}
+ assert.ok(!s.items.includes('ぽけ褒めマニュアル'));
 });
 test('returning after missed days preserves counts, and old visits migrate as a known minimum of entries',()=>{
  const store=storage(),old=initial();delete old.logins;delete old.loginSessions;old.visits=12;old.lastVisit='2026-11-01';store.setItem('poke-play-v1',JSON.stringify(old));
@@ -36,11 +33,11 @@ test('all growth thresholds have a locked before and unlocked after state',()=>{
  }
  assert.equal(canUse('unknown',9999),false);assert.equal(stageAt(9).at,1);assert.equal(nextStage(9).at,10);assert.equal(nextStage(10).at,30);assert.equal(stageAt(300).at,300);assert.equal(nextStage(350).at,400);assert.equal(stages.length,10);
 });
-test('decorations, tea and research require their login thresholds; daily rewards cannot be repeated',()=>{
+test('decorations, tea and research require their visiting-day thresholds; daily rewards cannot be repeated',()=>{
  let s=initial();for(const action of [{type:'decorate',value:'ミルク'},{type:'tea',value:'お水'},{type:'research',value:'かため'}])s=applyAction(s,action,time);
  assert.equal(s.settings.length,0);assert.equal(s.items.length,0);assert.equal(s.coins,0);
- s.logins=150;s=applyAction(s,{type:'decorate',value:'ミルク'},time);s=applyAction(s,{type:'decorate',value:'カラメル'},time);assert.deepEqual(s.settings,['お部屋の色：カラメル']);
- s.logins=250;for(let i=0;i<3;i++){s=applyAction(s,{type:'tea',value:'お水'},time);s=applyAction(s,{type:'research',value:'かため'},time);}
+ s.visits=150;s=applyAction(s,{type:'decorate',value:'ミルク'},time);s=applyAction(s,{type:'decorate',value:'カラメル'},time);assert.deepEqual(s.settings,['お部屋の色：カラメル']);
+ s.visits=250;for(let i=0;i<3;i++){s=applyAction(s,{type:'tea',value:'お水'},time);s=applyAction(s,{type:'research',value:'かため'},time);}
  assert.equal(s.coins,5);assert.equal(s.items.filter(x=>x.startsWith('プリン研究ノート')).length,1);assert.equal(s.events.filter(e=>e.key.startsWith('research:')).length,1);
 });
 test('many logins do not advance letter delays or the thirty visiting-day parcel',()=>{
