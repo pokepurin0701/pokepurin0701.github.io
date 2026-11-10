@@ -1,6 +1,6 @@
-import {sweetMotifs,sweetIcon} from './poke-sweets.mjs?v=sweets-1';
-import {readRoyalName,writeRoyalName,normalizeRoyalName} from './poke-royal-profile.mjs?v=sweets-1';
-import {royalStatus,royalRanks,ROYAL_GOAL} from './poke-royal.mjs?v=sweets-1';
+import {sweetMotifs,sweetIcon} from './poke-sweets.mjs?v=sweets-2';
+import {readRoyalName,writeRoyalName,normalizeRoyalName} from './poke-royal-profile.mjs?v=sweets-2';
+import {royalStatus,royalRanks,ROYAL_GOAL} from './poke-royal.mjs?v=sweets-2';
 const $=id=>document.getElementById(id),format=n=>n.toLocaleString('ja-JP');
 let previousLive=null,previousDemo=false,timer,personalName=null,demoName='おためしリスナー';
 function clearPromotion(){clearTimeout(timer);$('royalPromotion')?.setAttribute('hidden','');$('royalPass')?.classList.remove('is-promoting');$('royalParticles')?.replaceChildren();}
